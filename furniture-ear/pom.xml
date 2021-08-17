@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>hu.ulyssys.java.course</groupId>
+        <artifactId>furniture-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../furniture-parent</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>furniture-ear</artifactId>
+    <packaging>ear</packaging>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>hu.ulyssys.java.course</groupId>
+            <artifactId>furniture-backend</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+
+     <!--   <dependency>
+            <groupId>hu.ulyssys.java.course</groupId>
+            <artifactId>vehicle-export-backend</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>-->
+        <dependency>
+            <groupId>hu.ulyssys.java.course</groupId>
+            <artifactId>furniture-frontend</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <ejbModule>
+                            <groupId>hu.ulyssys.java.course</groupId>
+                            <artifactId>furniture-backend</artifactId>
+                        </ejbModule>
+                      <!--  <ejbModule>
+                            <groupId>hu.ulyssys.java.course</groupId>
+                            <artifactId>vehicle-export-backend</artifactId>
+                        </ejbModule>-->
+
+                        <webModule>
+                            <groupId>hu.ulyssys.java.course</groupId>
+                            <artifactId>furniture-frontend</artifactId>
+                            <contextRoot>/</contextRoot>
+                        </webModule>
+                    </modules>
+                    <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
