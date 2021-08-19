@@ -1,0 +1,43 @@
+GET http://localhost:8080/api/order
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/order/7
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/order/orderlist-by-owner-id/7
+Accept: application/json
+
+###
+
+
+
+DELETE http://localhost:8080/api/order/5
+Accept: application/json
+
+###
+
+
+POST http://localhost:8080/api/order
+Content-Type: application/json
+
+{
+}
+
+###
+
+PUT http://localhost:8080/api/order
+Content-Type: application/json
+
+{
+  "id": 1,
+  "licencePlateNumber": "ter-666",
+  "name": "name-11",
+  "onwerID": 1,
+  "doorNumbers": 0
+}
+
+###

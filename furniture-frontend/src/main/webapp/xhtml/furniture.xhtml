@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<body>
+
+<ui:composition template="layout/mainTemplate.xhtml">
+
+    <ui:define name="title">Furniture Demo</ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" style="margin: 20px auto;">
+
+            <crud:crudFunctions bean="#{furnitureCRUDMBean}" onCompleteShowDialog="PF('furnitureDialog').show()"
+                                onCompleteUpdate="@([id$=furnitureForm])"/>
+
+
+            <p:dataTable id="table" value="#{furnitureCRUDMBean.list}" var="furniture" rows="10"
+                         paginator="true" selectionMode="single" selection="#{furnitureCRUDMBean.selectedEntity}"
+                         rowKey="#{furniture.id}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <p:ajax event="rowSelect" update="@form"/>
+
+                <p:column sortBy="#{furniture.id}" filterBy="#{furniture.id}" filterMatchMode="contains"
+                          headerText="ID">
+                    <h:outputText value="#{furniture.id}"/>
+                </p:column>
+
+                <p:column sortBy="#{furniture.furnitureName}" filterBy="#{furniture.furnitureName}"
+                          filterMatchMode="contains"
+                          headerText="Bútor neve">
+                    <h:outputText value="#{furniture.furnitureName}"/>
+                </p:column>
+
+                <p:column sortBy="#{furniture.description}" filterBy="#{furniture.description}"
+                          filterMatchMode="contains"
+                          headerText="Bútor leírása">
+                    <h:outputText value="#{furniture.description}"/>
+                </p:column>
+
+                <p:column sortBy="#{furniture.price}" filterBy="#{furniture.price}" filterMatchMode="contains"
+                          headerText="Bútor ára">
+                    <h:outputText value="#{furniture.price}"/>
+                </p:column>
+
+                <p:column sortBy="#{furniture.createdDate}" filterBy="#{furniture.createdDate}"
+                          filterMatchMode="contains"
+                          headerText="Létrehozás dátuma">
+                    <h:outputText value="#{furniture.createdDate}"/>
+                </p:column>
+
+                <p:column sortBy="#{furniture.modifiedDate}" filterBy="#{furniture.modifiedDate}"
+                          filterMatchMode="contains"
+                          headerText="Módosítás dátuma">
+                    <h:outputText value="#{furniture.modifiedDate}"/>
+                </p:column>
+                <p:column sortBy="#{furniture.createdUser}" filterBy="#{furniture.createdUser}"
+                          filterMatchMode="contains"
+                          headerText="Létrehozó felhasználó">
+                    <h:outputText value="#{furniture.createdUser}"/>
+                </p:column>
+
+                <p:column sortBy="#{furniture.modifierUser}" filterBy="#{furniture.modifierUser}"
+                          filterMatchMode="contains"
+                          headerText="Módosító felhasználó">
+                    <h:outputText value="#{furniture.modifierUser}"/>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="furnitureDialog" widgetVar="furnitureDialog" header="Form" modal="true" closable="true">
+            <h:form id="furnitureForm">
+                <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 600px">
+                    <p:outputLabel value="Név"/>
+                    <p:inputText value="#{furnitureCRUDMBean.selectedEntity.furnitureName}" required="true"
+                                 requiredMessage="Név kötelező"/>
+
+                    <p:outputLabel value="Ár"/>
+                    <p:inputNumber maxValue="100" thousandSeparator="" decimalPlaces="0"
+                                   value="#{furnitureCRUDMBean.selectedEntity.price}" required="true"
+                                   requiredMessage="Az ár kötelező!"/>
+                    <p:outputLabel value="Leírás"/>
+                    <p:inputText value="#{furnitureCRUDMBean.selectedEntity.description}" required="true"
+                                 requiredMessage="Leírás kötelező"/>
+
+
+                    <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{furnitureCRUDMBean.save()}"
+                                     process="formPanel" update=":form"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+</body>
+</html>

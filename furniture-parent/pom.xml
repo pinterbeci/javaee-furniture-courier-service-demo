@@ -21,7 +21,7 @@
         <itextpdf-version>5.5.13.2</itextpdf-version>
         <openpdf-version>1.3.26</openpdf-version>
         <poi-ooxml-version>5.0.0</poi-ooxml-version>
-    </properties>
+       </properties>
 
     <modules>
         <module>../furniture-api</module>
@@ -44,6 +44,8 @@
                 <version>${jsf-api-version}</version>
                 <scope>provided</scope>
             </dependency>
+
+
 
             <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
             <dependency>

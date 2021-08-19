@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+    <composite:attribute required="true" name="bean" type="hu.ulyssys.java.course.maven.mbean.CoreCRUDMBean"/>
+    <composite:attribute required="true" name="onCompleteShowDialog" type="java.lang.String"/>
+    <composite:attribute required="true" name="onCompleteUpdate" type="java.lang.String"/>
+</composite:interface>
+
+<composite:implementation>
+    <p:outputPanel id="crudFunctionsToolbar">
+
+        <p:toolbar rendered="#{loggedInUserBean.isLoggedIn()}">
+            <p:toolbarGroup>
+                <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
+                                 disabled="#{cc.attrs.bean.selectedEntity.id==null}"
+                                 actionListener="#{cc.attrs.bean.initSave}" update="#{cc.attrs.onCompleteUpdate}"
+                                 oncomplete="#{cc.attrs.onCompleteShowDialog}"/>
+                <p:commandButton disabled="#{cc.attrs.bean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
+                                 process="@this" value="Törlés" actionListener="#{cc.attrs.bean.remove}"
+                                 update="@form">
+                    <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
+                </p:commandButton>
+                <p:commandButton id="update" process="@this" disabled="#{cc.attrs.bean.selectedEntity.id==null}"
+                                 value="Módosítás" icon="pi pi-pencil" update="#{cc.attrs.onCompleteUpdate}"
+                                 oncomplete="#{cc.attrs.onCompleteShowDialog}"/>
+            </p:toolbarGroup>
+            <p:toolbarGroup align="right">
+                <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
+
+                <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource=":form:table"/>
+
+                <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
+                    <p:dataExporter type="xls" target=":form:table" fileName="export"/>
+                </p:commandButton>
+
+                <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
+                    <p:dataExporter type="xlsxstream" target=":form:table" fileName="export"/>
+                </p:commandButton>
+
+                <!-- TODO Utf-8 karakter -->
+                <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
+                    <p:dataExporter type="pdf" target=":form:table" fileName="export"/>
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+    </p:outputPanel>
+
+</composite:implementation>
+</html>

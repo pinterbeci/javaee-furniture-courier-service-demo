@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
+      xml:lang="en" lang="en">
+<body>
+
+<ui:composition template="layout/mainTemplate.xhtml">
+
+    <ui:define name="title">Felhasználó karbantartó</ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" style="margin: 20px auto;">
+
+            <p:growl id="growl" showDetail="false"/>
+            <crud:crudFunctions bean="#{appUserCRUDMBean}" onCompleteShowDialog="PF('appUserDialog').show()"
+                               onCompleteUpdate="@([id$=appUserForm])"/>
+
+            <p:dataTable id="table" value="#{appUserCRUDMBean.list}" var="appUser" rows="10"
+                         paginator="true" selectionMode="single" selection="#{appUserCRUDMBean.selectedEntity}"
+                         rowKey="#{appUser.id}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <p:ajax event="rowSelect" update="@form"/>
+
+                <p:column sortBy="#{appUser.id}" filterBy="#{appUser.id}" filterMatchMode="contains"
+                          headerText="ID">
+                    <h:outputText value="#{appUser.id}"/>
+                </p:column>
+
+                <p:column sortBy="#{appUser.username}" filterBy="#{appUser.username}" filterMatchMode="contains"
+                          headerText="Felhasználó név">
+                    <h:outputText value="#{appUser.username}"/>
+                </p:column>
+
+                <p:column sortBy="#{appUser.role}" filterBy="#{appUser.role}" filterMatchMode="contains"
+                          headerText="Szerepkör">
+                    <h:outputText value="#{appUser.role}"/>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="appUserDialog" widgetVar="appUserDialog" header="Form" modal="true" closable="true">
+            <h:form id="appUserForm">
+                <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 800px">
+                    <p:outputLabel value="Felhasználó név"/>
+                    <p:inputText value="#{appUserCRUDMBean.selectedEntity.username}" required="true"
+                                 requiredMessage="FELHASZNÁLÓNÉV kötelező!"/>
+
+
+                    <p:outputLabel value="Szererpkör"/>
+                    <p:selectOneMenu thousandSeparator="" decimalPlaces="0"
+                                     value="#{appUserCRUDMBean.selectedEntity.role}" required="true"
+                                     requiredMessage="SZEREPKÖR kötelező!">
+                        <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon!"/>
+                        <f:selectItem itemValue="ADMIN" itemLabel="ADMIN felhasználó"/>
+                        <f:selectItem itemValue="USER" itemLabel="Vásárló"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Jelszó" rendered="#{appUserCRUDMBean.selectedEntity.id==null}"/>
+                    <p:password rendered="#{appUserCRUDMBean.selectedEntity.id==null}"
+                                feedback="true" value="#{appUserCRUDMBean.selectedEntity.passwordHash}"/>
+
+                    <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{appUserCRUDMBean.save()}"
+                                     process="formPanel" update=":form"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+</body>
+</html>
