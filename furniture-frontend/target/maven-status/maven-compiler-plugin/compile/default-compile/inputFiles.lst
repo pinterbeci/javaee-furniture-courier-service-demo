@@ -10,10 +10,13 @@ E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\MenuItemCRUDMBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\MenuProviderMBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\rest\model\CourierRestModel.java
+E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\OrderAwareCRUDMBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\model\LoginModel.java
+E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\CourierCRUDMBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\LoginRequestBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\rest\model\UserRestModel.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\rest\CourierRestService.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\FurnitureCRUDMBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\AppUserCRUDMBean.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\model\LoggedInUserModel.java
+E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-frontend\src\main\java\hu\ulyssys\java\course\maven\mbean\OrderCRUDMBean.java

@@ -16,7 +16,7 @@ public abstract class AbstractFurniture extends AbstractEntity implements Furnit
     @Column(name = "created_user", nullable = false)
     private AppUserRole createdUser;
 
-    @Column(name = "modifier_user", nullable = false)
+    @Column(name = "modifier_user")
     private AppUserRole modifierUser;
 
     public AbstractFurniture() {

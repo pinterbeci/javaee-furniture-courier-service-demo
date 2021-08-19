@@ -1,6 +1,7 @@
 package hu.ulyssys.java.course.maven.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @NamedQuery(name = AppUser.FIND_BY_USERNAME, query = "select u from AppUser u where u.username=:username")
 @Table(name = "furniture_app_user")
@@ -9,7 +10,8 @@ public class AppUser extends AbstractEntity {
 
     public static final String FIND_BY_USERNAME = "AppUser.findByUsername";
 
-    @Column(name = "username", unique = true, nullable = false)
+    @NotNull
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password_hash", nullable = false)

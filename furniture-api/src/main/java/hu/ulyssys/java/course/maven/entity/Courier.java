@@ -10,14 +10,18 @@ import javax.validation.constraints.Pattern;
 @Table(name = "furniture_courier_table")
 public class Courier extends AbstractFurniture {
 
+    private static final  String PATTERN_MESSAGE="Meg kell feleljen egy magyar telefonszám szabványnak"+
+            "\n pld.: +36 20/30/70 XX XX XXX!";
     @Column(name = "first_name", length = 500, nullable = false)
     private String firstName;
 
     @Column(name = "last_name", length = 500, nullable = false)
     private String lastName;
 
+
+
     @Column(name = "phone_number", nullable = false)
-    @Pattern(regexp = "\\+3630[0-9]{7}|\\+3620[0-9]{7}|\\+3670[0-9]{7}")
+    @Pattern(regexp = "\\+3630[0-9]{7}|\\+3620[0-9]{7}|\\+3670[0-9]{7}", message = PATTERN_MESSAGE)
     private String phoneNumber;
 
 

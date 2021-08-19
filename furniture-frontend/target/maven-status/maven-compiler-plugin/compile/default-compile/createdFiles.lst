@@ -1,4 +1,5 @@
 hu\ulyssys\java\course\maven\mbean\MenuItemCRUDMBean.class
+hu\ulyssys\java\course\maven\mbean\CourierCRUDMBean.class
 hu\ulyssys\java\course\maven\rest\FurnitureRestService.class
 hu\ulyssys\java\course\maven\rest\model\CoreRestModel.class
 hu\ulyssys\java\course\maven\rest\model\FurnitureRestModel.class
@@ -7,8 +8,10 @@ hu\ulyssys\java\course\maven\rest\CoreRestService.class
 hu\ulyssys\java\course\maven\rest\model\CourierRestModel.class
 hu\ulyssys\java\course\maven\mbean\model\LoginModel.class
 hu\ulyssys\java\course\maven\mbean\CoreCRUDMBean.class
+hu\ulyssys\java\course\maven\mbean\OrderAwareCRUDMBean.class
 hu\ulyssys\java\course\maven\mbean\AppUserCRUDMBean.class
 hu\ulyssys\java\course\maven\mbean\MenuProviderMBean.class
+hu\ulyssys\java\course\maven\mbean\OrderCRUDMBean.class
 hu\ulyssys\java\course\maven\mbean\LoggedInUserBean.class
 hu\ulyssys\java\course\maven\mbean\FurnitureCRUDMBean.class
 hu\ulyssys\java\course\maven\rest\model\OrderRestModel.class

@@ -35,9 +35,6 @@ public abstract class CoreRestService<T extends AbstractFurniture, M extends Cor
 
         T entity = initNewEntity();
 
-        //todo ha orderről van szó azt majd külön az ő rest fájljába meg kell határozni, hogy
-        //ha az order.customer id nulla, akkor új létrehozása
-        //ha nem nulla, akkor az adatok settelése :)
         populateEntityFromModel(entity, model);
         service.add(entity);
         return Response.ok(createModelFromEntity(entity)).build();

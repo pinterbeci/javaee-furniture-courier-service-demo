@@ -7,12 +7,15 @@ import org.primefaces.PrimeFaces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public abstract class CoreCRUDMBean<T extends AbstractEntity> implements Serializable {
 
+
     private List<T> list;
     private T selectedEntity;
+
 
     protected CoreService<T> service;
 
@@ -30,6 +33,7 @@ public abstract class CoreCRUDMBean<T extends AbstractEntity> implements Seriali
     public void save() {
         try {
             if (selectedEntity.getId() == null) {
+                selectedEntity.setCreatedDate(new Date());
                 service.add(selectedEntity);
                 list = service.getAll();
                 selectedEntity = initNewEntity();
