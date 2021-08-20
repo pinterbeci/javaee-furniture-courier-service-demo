@@ -2,11 +2,167 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
 <body>
+<ui:composition template="layout/mainTemplate.xhtml">
 
+    <ui:define name="title">Order Demo</ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="growl" showDetail="false"/>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
+                                     actionListener="#{orderCRUDMBean.initSave}" update="@([id$=orderForm])"
+                                     oncomplete="PF('orderDialog').show()"/>
+                    <p:commandButton id="delete"
+                                     icon="pi pi-times"
+                                     process="@this" value="Törlés" actionListener="#{orderCRUDMBean.remove}"
+                                     update="@form">
+                        <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
+                    </p:commandButton>
+                    <p:commandButton id="update" process="@this"
+                                     value="Módosítás" icon="pi pi-pencil" update="@([id$=orderForm])"
+                                     oncomplete="PF('orderDialog').show()"/>
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
+
+                    <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
+
+                    <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xls" target="table" fileName="export"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="pdf" target="table" fileName="export"/>
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="table" paginator="true" value="#{orderCRUDMBean.list}" var="order"
+                         selectionMode="single" selection="#{orderCRUDMBean.selectedEntity}"
+                         rowKey="#{order.id}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <p:ajax event="rowSelect" update="@form"/>
+                <p:column toggleable="false" sortBy="#{order.id}" filterBy="#{order.id}"
+                          filterMatchMode="contains"
+                          headerText="ID">
+                    <h:outputText value="#{order.id}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.deliveryDate}" filterBy="#{order.deliveryDate}"
+                          filterMatchMode="contains"
+                          headerText="Kiszállítás dátuma">
+                    <h:outputText value="#{order.deliveryDate}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.settlement}" filterBy="#{order.settlement}"
+                          filterMatchMode="contains"
+                          headerText="Település neve">
+                    <h:outputText value="#{order.settlement}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.publicSpace}"
+                          filterBy="#{order.natureOfPublicSpace}"
+                          filterMatchMode="contains"
+                          headerText="Közterület neve">
+                    <h:outputText value="#{order.publicSpace}"/>
+                </p:column>
+                <p:column toggleable="false" sortBy="#{order.natureOfPublicSpace}"
+                          filterBy="#{order.natureOfPublicSpace}"
+                          filterMatchMode="contains"
+                          headerText="Közterület jellege">
+                    <h:outputText value="#{order.natureOfPublicSpace}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.addressNumber}" filterBy="#{order.addressNumber}"
+                          filterMatchMode="contains"
+                          headerText="Házszám">
+                    <h:outputText value="#{order.addressNumber}"/>
+                </p:column>
+
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog id="orderDialog" widgetVar="orderDialog" header="Rendelés adatainak megadása" modal="true"
+                  closable="true" width="70%" height="500" blockScroll="false" resizable="true">
+
+            <h:form id="orderForm">
+                <p:panelGrid layout="grid" columns="2" id="formPanel">
+
+                    <p:outputLabel value="Település"/>
+                    <p:inputText value="#{orderCRUDMBean.selectedEntity.settlement}" required="true"
+                                 requiredMessage="A település kötelező"/>
+
+                    <p:outputLabel value="Közterület neve"/>
+                    <p:inputText value="#{orderCRUDMBean.selectedEntity.publicSpace}" required="true"
+                                 requiredMessage="A közterület neve kötelező"/>
+
+                    <p:outputLabel value="Közterület jellege"/>
+                    <p:selectOneMenu thousandSeparator="" decimalPlaces="0"
+                                     style="width: 200px; align-content: center"
+                                     value="#{orderCRUDMBean.selectedEntity.natureOfPublicSpace}" required="true"
+                                     requiredMessage="Közterület Jellege kötelező!">
+                        <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon!"/>
+                        <f:selectItem itemValue="tér" itemLabel="tér"/>
+                        <f:selectItem itemValue="út" itemLabel="út"/>
+                        <f:selectItem itemValue="utca" itemLabel="utca"/>
+                        <f:selectItem itemValue="köz" itemLabel="köz"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Házszám"/>
+                    <p:inputText value="#{orderCRUDMBean.selectedEntity.addressNumber}"
+                                 required="true"
+                                 requiredMessage="A házszám kötelező"/>
+
+                    <p:outputLabel for="basic" value="Kiszállítás dátuma"/>
+                    <p:datePicker id="basic" value="#{orderCRUDMBean.selectedEntity.deliveryDate}"
+                                  mindate="#{orderCRUDMBean.minDate}"/>
+
+                    <p:outputLabel value="Futárok"/>
+                    <p:selectOneMenu style="width: 200px; align-content: center"
+                                     value="#{orderCRUDMBean.selectedEntity.courier}" converter="#{appConverter}">
+                        <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon!"/>
+                        <f:selectItems value="#{orderCRUDMBean.courierList}" var="coruier"
+                                       itemLabel="#{coruier.firstName} #{coruier.lastName}"
+                                       itemValue="#{coruier}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Bútorok listája"/>
+                    <p:selectManyMenu id="listOfFurniture" value="#{orderCRUDMBean.selectedEntity.furnitureList}"
+                                      var="f" filter="true" filterMatchMode="contains" showCheckbox="true"
+                                      styleClass="manymenu-advanced" style="width: 300px; align-content: center">
+                        <f:selectItems value="#{orderCRUDMBean.furnitureList}" var="furniture"
+                                       itemLabel="#{furniture.furnitureName}"
+                                       itemValue="#{furniture}"/>
+                        <p:column>
+                            <h:outputText value="#{f.furnitureName} -> #{f.price} HUF"/>
+                        </p:column>
+                    </p:selectManyMenu>
+
+                    <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{orderCRUDMBean.save()}"
+                                     process="formPanel" update=":form" style="float:right"/>
+                </p:panelGrid>
+
+
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+</ui:composition>
 </body>
 </html>

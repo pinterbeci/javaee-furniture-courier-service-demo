@@ -1,5 +1,6 @@
 hu\ulyssys\java\course\maven\entity\AppUser.class
 hu\ulyssys\java\course\maven\entity\AppUserRole.class
+hu\ulyssys\java\course\maven\entity\PublicSpaceType.class
 hu\ulyssys\java\course\maven\service\CourierService.class
 hu\ulyssys\java\course\maven\service\AppUserService.class
 hu\ulyssys\java\course\maven\service\OrderService.class
@@ -7,6 +8,7 @@ hu\ulyssys\java\course\maven\entity\AbstractFurniture.class
 hu\ulyssys\java\course\maven\entity\Furniture.class
 hu\ulyssys\java\course\maven\service\CoreService.class
 hu\ulyssys\java\course\maven\entity\Courier.class
+hu\ulyssys\java\course\maven\entity\PublicSpaceTypeAware.class
 hu\ulyssys\java\course\maven\service\FurnitureService.class
 hu\ulyssys\java\course\maven\entity\AbstractEntity.class
 hu\ulyssys\java\course\maven\entity\FurnitureTypeAware.class

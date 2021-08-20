@@ -3,6 +3,7 @@ package hu.ulyssys.java.course.maven.rest;
 import hu.ulyssys.java.course.maven.entity.AppUser;
 import hu.ulyssys.java.course.maven.entity.Furniture;
 import hu.ulyssys.java.course.maven.entity.Order;
+import hu.ulyssys.java.course.maven.entity.PublicSpaceType;
 import hu.ulyssys.java.course.maven.rest.model.OrderRestModel;
 import hu.ulyssys.java.course.maven.service.AppUserService;
 import hu.ulyssys.java.course.maven.service.CourierService;
@@ -76,6 +77,7 @@ public class OrderRestService {
         order.setPublicSpace(model.getPublicSpace());
         order.setAddressNumber(model.getAddressNumber());
         order.setSettlement(model.getSettlement());
+        //todo
         order.setNatureOfPublicSpace(model.getNatureOfPublicSpace());
         order.setModifiedDate(null);
         order.setCustomer(appUserService.findById(model.getCustomerID()));
@@ -89,7 +91,6 @@ public class OrderRestService {
         orderService.add(order);
         return Response.ok(createModelFromEntity(order)).build();
     }
-
 
 
     @PUT

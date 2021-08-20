@@ -4,10 +4,7 @@ import hu.ulyssys.java.course.maven.entity.AppUser;
 import hu.ulyssys.java.course.maven.entity.AppUserRole;
 import hu.ulyssys.java.course.maven.entity.Furniture;
 import hu.ulyssys.java.course.maven.entity.Order;
-import hu.ulyssys.java.course.maven.service.AppUserService;
-import hu.ulyssys.java.course.maven.service.CoreService;
-import hu.ulyssys.java.course.maven.service.FurnitureService;
-import hu.ulyssys.java.course.maven.service.OrderService;
+import hu.ulyssys.java.course.maven.service.*;
 import org.primefaces.PrimeFaces;
 
 import javax.faces.application.FacesMessage;
@@ -16,15 +13,21 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 @Named
 @ViewScoped
 public class OrderCRUDMBean extends AbstractOrderCRUDMBean<Order> implements Serializable {
 
+    @Named
+    private Date minDate = new Date(Calendar.getInstance().getTime().getTime());
+
+
     @Inject
-    public OrderCRUDMBean(OrderService service, AppUserService customerService, FurnitureService furnitureService) {
-        super(service, customerService, furnitureService);
+    public OrderCRUDMBean(OrderService service, AppUserService customerService, CourierService courierService,
+                          FurnitureService furnitureService) {
+        super(service, customerService, courierService, furnitureService);
     }
 
     @Override
@@ -63,5 +66,9 @@ public class OrderCRUDMBean extends AbstractOrderCRUDMBean<Order> implements Ser
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
         }
+    }
+
+    public Date getMinDate() {
+        return minDate;
     }
 }

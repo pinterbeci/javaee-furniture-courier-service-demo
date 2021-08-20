@@ -21,6 +21,7 @@ public class AppUser extends AbstractEntity {
     @Column(name = "role")
     private AppUserRole role;
 
+
     public String getUsername() {
         return username;
     }
@@ -44,4 +45,6 @@ public class AppUser extends AbstractEntity {
     public void setRole(AppUserRole role) {
         this.role = role;
     }
+
+
 }

@@ -3,6 +3,7 @@ package hu.ulyssys.java.course.maven.rest.model;
 import hu.ulyssys.java.course.maven.entity.AppUser;
 import hu.ulyssys.java.course.maven.entity.Courier;
 import hu.ulyssys.java.course.maven.entity.Furniture;
+import hu.ulyssys.java.course.maven.entity.PublicSpaceType;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;

@@ -3,12 +3,12 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/courier/7
+GET http://localhost:8080/api/courier/1
 Accept: application/json
 
 ###
 
-DELETE http://localhost:8080/api/courier/5
+DELETE http://localhost:8080/api/courier/4
 Accept: application/json
 
 ###
@@ -18,20 +18,22 @@ POST http://localhost:8080/api/courier
 Content-Type: application/json
 
 {
-
+  "firstName": "Sanya",
+  "lastName": "Horváth",
+  "phoneNumber": "+36306377413"
 }
-
 ###
 
 PUT http://localhost:8080/api/courier
 Content-Type: application/json
 
 {
-  "id": 1,
-  "licencePlateNumber": "ter-666",
-  "name": "name-11",
-  "onwerID": 1,
-  "doorNumbers": 0
+  "id": 2,
+  "createdUser": "USER",
+  "firstName": "Hugó",
+  "furnitureType": "COURIER",
+  "lastName": "Gerics",
+  "phoneNumber": "+36200000111"
 }
 
 ###

@@ -2,8 +2,10 @@ E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\AbstractFurniture.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\Courier.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\Order.java
+E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\PublicSpaceType.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\FurnitureType.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\service\CourierService.java
+E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\PublicSpaceTypeAware.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\Furniture.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\FurnitureTypeAware.java
 E:\Portfolio\Ulyssys Java EE Course\JavaEEDemoFurnitureCourierService\furniture-api\src\main\java\hu\ulyssys\java\course\maven\entity\AppUserRole.java

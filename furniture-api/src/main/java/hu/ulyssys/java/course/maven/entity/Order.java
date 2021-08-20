@@ -20,8 +20,8 @@ public class Order extends AbstractFurniture {
     @JoinColumn(name = "customer_id")
     private AppUser customer;
 
-    @OneToMany
     @JoinColumn(name = "furniture_list")
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Furniture> furnitureList = new ArrayList<>();
 
 
@@ -93,19 +93,19 @@ public class Order extends AbstractFurniture {
         this.addressNumber = addressNumber;
     }
 
-    public String getNatureOfPublicSpace() {
-        return natureOfPublicSpace;
-    }
-
-    public void setNatureOfPublicSpace(String natureOfPublicSpace) {
-        this.natureOfPublicSpace = natureOfPublicSpace;
-    }
-
     public AppUser getCustomer() {
         return customer;
     }
 
     public void setCustomer(AppUser customer) {
         this.customer = customer;
+    }
+
+    public String getNatureOfPublicSpace() {
+        return natureOfPublicSpace;
+    }
+
+    public void setNatureOfPublicSpace(String natureOfPublicSpace) {
+        this.natureOfPublicSpace = natureOfPublicSpace;
     }
 }
