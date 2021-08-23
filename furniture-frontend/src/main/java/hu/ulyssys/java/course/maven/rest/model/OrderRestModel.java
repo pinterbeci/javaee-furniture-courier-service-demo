@@ -15,7 +15,8 @@ import java.util.List;
 
 public class OrderRestModel extends CoreRestModel {
 
-    //vásárló id
+
+    //todo
     private Long customerID;
 
     private Long courierID;

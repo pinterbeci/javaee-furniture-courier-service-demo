@@ -84,7 +84,7 @@ public class OrderRestService {
         order.setCreatedDate(new Date());
         //todo
         order.setModifierUser(null);
-        order.setCourier(courierService.findByOwnerID(model.getId()));
+        order.setCourier(courierService.findById(model.getId()));
         order.setFurnitureList(furnitureService.findByOrderID(model.getId()));
         order.setDeliveryDate(model.getDeliveryDate());
 
@@ -112,7 +112,7 @@ public class OrderRestService {
         order.setCreatedDate(model.getCreatedDate());
         //todo
         order.setModifierUser(null);
-        order.setCourier(courierService.findByOwnerID(model.getId()));
+        order.setCourier(courierService.findById(model.getId()));
         order.setFurnitureList(furnitureService.findByOrderID(model.getId()));
         order.setDeliveryDate(model.getDeliveryDate());
 
@@ -143,7 +143,7 @@ public class OrderRestService {
         model.setNatureOfPublicSpace(order.getNatureOfPublicSpace());
         model.setPublicSpace(order.getPublicSpace());
         //todo created user
-        model.setCourierID(courierService.findByOwnerID(model.getId()).getId());
+        model.setCourierID(courierService.findById(model.getId()).getId());
         model.setFurnitureIDList(
                 furnitureService.getAll().stream().map(Furniture::getId)
                         .collect(Collectors.toList()));

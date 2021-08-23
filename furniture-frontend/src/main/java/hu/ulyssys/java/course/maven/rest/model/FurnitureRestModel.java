@@ -1,7 +1,6 @@
 package hu.ulyssys.java.course.maven.rest.model;
 
 public class FurnitureRestModel extends CoreRestModel {
-    //todo megkötések max value stb stb
 
     private String description;
 

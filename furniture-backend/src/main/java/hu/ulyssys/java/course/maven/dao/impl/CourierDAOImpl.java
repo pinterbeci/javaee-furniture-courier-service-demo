@@ -5,7 +5,10 @@ import hu.ulyssys.java.course.maven.entity.Courier;
 import hu.ulyssys.java.course.maven.entity.Order;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Stateless
 public class CourierDAOImpl extends CoreDAOImpl<Courier> implements CourierDAO {
@@ -14,12 +17,9 @@ public class CourierDAOImpl extends CoreDAOImpl<Courier> implements CourierDAO {
         return Courier.class;
     }
 
-    @Override
-    public Courier findByOwnerID(Long id) {
-        TypedQuery<Courier> query =
-                entityManager.createQuery("SELECT c FROM Courier c WHERE c.id = :id ORDER BY c.id",
-                        getManagedClass());
-        query.setParameter("id", id);
-        return query.getResultList().get(0);
-    }
+ /*   @Override
+    public void delete(Long id) {
+        entityManager.createQuery("DELETE FROM Courier c WHERE c.id =: id");
+        super.delete(id);
+    }*/
 }

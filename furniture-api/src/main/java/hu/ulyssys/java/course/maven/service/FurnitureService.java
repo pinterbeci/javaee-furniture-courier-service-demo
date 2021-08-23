@@ -7,4 +7,5 @@ import java.util.List;
 public interface FurnitureService extends CoreService<Furniture> {
 
     List<Furniture> findByOrderID(Long id);
+
 }

@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public abstract class CoreDAOImpl <T extends AbstractEntity> implements CoreDAO<T> {
+public abstract class CoreDAOImpl<T extends AbstractEntity> implements CoreDAO<T> {
 
     @PersistenceContext(unitName = "TestPersistence")
     protected EntityManager entityManager;
@@ -18,7 +18,7 @@ public abstract class CoreDAOImpl <T extends AbstractEntity> implements CoreDAO<
     @Override
     public List<T> findAll() {
         return entityManager.createQuery("select n from " + getManagedClass().getSimpleName()
-                + " n order by n.id", getManagedClass()).getResultList();
+                + " n order by n.id ", getManagedClass()).getResultList();
     }
 
     @Override

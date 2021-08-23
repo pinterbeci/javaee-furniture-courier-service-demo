@@ -7,8 +7,5 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class CourierServiceImpl extends AbstractServiceImpl<Courier> implements CourierService {
-    @Override
-    public Courier findByOwnerID(Long id) {
-        return ((CourierDAO) dao).findByOwnerID(id);
-    }
+
 }

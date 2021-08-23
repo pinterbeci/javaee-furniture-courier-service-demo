@@ -3,6 +3,7 @@ package hu.ulyssys.java.course.maven.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 
 @Table(name = "furniture_table")

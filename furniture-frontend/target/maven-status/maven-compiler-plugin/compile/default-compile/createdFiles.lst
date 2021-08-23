@@ -12,7 +12,6 @@ hu\ulyssys\java\course\maven\mbean\CourierCRUDMBean.class
 hu\ulyssys\java\course\maven\rest\FurnitureRestService.class
 hu\ulyssys\java\course\maven\rest\model\FurnitureRestModel.class
 hu\ulyssys\java\course\maven\rest\CourierRestService.class
-hu\ulyssys\java\course\maven\rest\CoreRestService.class
 hu\ulyssys\java\course\maven\rest\model\CourierRestModel.class
 hu\ulyssys\java\course\maven\mbean\model\LoginModel.class
 hu\ulyssys\java\course\maven\mbean\OrderAwareCRUDMBean.class

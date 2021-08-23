@@ -1,6 +1,7 @@
 package hu.ulyssys.java.course.maven.entity;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,10 @@ public class Order extends AbstractFurniture {
     @JoinColumn(name = "customer_id")
     private AppUser customer;
 
+
+
     @JoinColumn(name = "furniture_list")
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Furniture> furnitureList = new ArrayList<>();
 
 

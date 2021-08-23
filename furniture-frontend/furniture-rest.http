@@ -3,22 +3,19 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/furniture/7
+GET http://localhost:8080/api/furniture/9
 Accept: application/json
 
 ###
-
-DELETE http://localhost:8080/api/furniture/5
-Accept: application/json
-
-###
-
 
 POST http://localhost:8080/api/furniture
 Content-Type: application/json
 
 {
-
+  "createdDate": "2021-08-19T20:49:23.256Z[UTC]",
+  "description": "Próba leírás",
+  "furnitureName": "Szekrény-08",
+  "price": 12000
 }
 
 ###
@@ -27,11 +24,18 @@ PUT http://localhost:8080/api/furniture
 Content-Type: application/json
 
 {
-  "id": 1,
-  "licencePlateNumber": "ter-666",
-  "name": "name-11",
-  "onwerID": 1,
-  "doorNumbers": 0
+  "id": 11,
+  "createdDate": "2021-08-19T20:49:23.256Z[UTC]",
+  "description": "Gardróbként használható, beépíthető",
+  "furnitureName": "Szekrény-08",
+  "price": 120000
 }
 
 ###
+
+
+DELETE http://localhost:8080/api/furniture/2
+Accept: application/json
+
+###
+

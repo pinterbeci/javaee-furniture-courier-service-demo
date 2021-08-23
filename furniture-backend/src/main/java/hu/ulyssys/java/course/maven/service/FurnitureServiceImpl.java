@@ -12,4 +12,5 @@ public class FurnitureServiceImpl extends AbstractServiceImpl<Furniture> impleme
     public List<Furniture> findByOrderID(Long id) {
         return ((FurnitureDAO) dao).findByOrderID(id);
     }
+
 }

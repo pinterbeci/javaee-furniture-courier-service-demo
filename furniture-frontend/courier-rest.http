@@ -1,14 +1,8 @@
 GET http://localhost:8080/api/courier
 Accept: application/json
-
 ###
 
-GET http://localhost:8080/api/courier/1
-Accept: application/json
-
-###
-
-DELETE http://localhost:8080/api/courier/4
+GET http://localhost:8080/api/courier/3
 Accept: application/json
 
 ###
@@ -18,22 +12,27 @@ POST http://localhost:8080/api/courier
 Content-Type: application/json
 
 {
-  "firstName": "Sanya",
-  "lastName": "Horváth",
-  "phoneNumber": "+36306377413"
+  "createdDate": "2021-08-19T20:49:23.256Z[UTC]",
+  "firstName": "Sándor",
+  "lastName": "Tóth",
+  "phoneNumber": "+36302144123"
 }
+
 ###
 
 PUT http://localhost:8080/api/courier
 Content-Type: application/json
 
 {
-  "id": 2,
-  "createdUser": "USER",
-  "firstName": "Hugó",
-  "furnitureType": "COURIER",
-  "lastName": "Gerics",
-  "phoneNumber": "+36200000111"
+  "firstName": "Krisztián",
+  "id": 19,
+  "lastName": "Nagy",
+  "phoneNumber": "+36705566777"
 }
+
+###
+
+DELETE http://localhost:8080/api/courier/2
+Accept: application/json
 
 ###

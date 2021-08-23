@@ -12,10 +12,9 @@ public abstract class CoreRestModel {
 
     private Date modifiedDate;
 
-    private AppUserRole createdUser;
+    private Long createdUserID;
 
-    private AppUserRole modifierUser;
-
+    private Long modifierUserID;
 
     public CoreRestModel() {
     }
@@ -44,19 +43,19 @@ public abstract class CoreRestModel {
         this.modifiedDate = modifiedDate;
     }
 
-    public AppUserRole getCreatedUser() {
-        return createdUser;
+    public Long getCreatedUserID() {
+        return createdUserID;
     }
 
-    public void setCreatedUser(AppUserRole createdUser) {
-        this.createdUser = createdUser;
+    public void setCreatedUserID(Long createdUserID) {
+        this.createdUserID = createdUserID;
     }
 
-    public AppUserRole getModifierUser() {
-        return modifierUser;
+    public Long getModifierUserID() {
+        return modifierUserID;
     }
 
-    public void setModifierUser(AppUserRole modifierUser) {
-        this.modifierUser = modifierUser;
+    public void setModifierUserID(Long modifierUserID) {
+        this.modifierUserID = modifierUserID;
     }
 }
