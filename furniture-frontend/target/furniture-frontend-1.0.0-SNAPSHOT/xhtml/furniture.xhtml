@@ -19,7 +19,7 @@
                                 onCompleteUpdate="@([id$=furnitureForm])"/>
 
 
-            <p:dataTable id="table" paginator="true" value="#{furnitureCRUDMBean.trial()}" var="furniture"
+            <p:dataTable id="table" paginator="true" value="#{furnitureCRUDMBean.list}" var="furniture"
                          rendered="#{loggedInUserBean.loggedIn}"
                          selectionMode="single" selection="#{furnitureCRUDMBean.selectedEntity}"
                          rowKey="#{furniture.id}"

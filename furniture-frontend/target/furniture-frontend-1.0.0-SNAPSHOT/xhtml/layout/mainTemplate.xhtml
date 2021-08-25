@@ -25,13 +25,13 @@
 -->
                     <p:commandLink
                             value="Irány a belépéshez!" action="/xhtml/login.xhtml"
-                                   rendered="#{loggedInUserBean.loggedIn==false}"/>
+                            rendered="#{loggedInUserBean.loggedIn==false}"/>
 
                     <p:outputLabel
 
                             rendered="#{loggedInUserBean.loggedIn==true}"
-                                   value="#{loggedInUserBean.loggedInUserModel.username} (#{loggedInUserBean.loggedInUserModel.role})"
-                                   style="padding: 5px 10px; margin: 5px 10px; font-weight: bold; font-style: inherit"/>
+                            value="#{loggedInUserBean.loggedInUserModel.username} (#{loggedInUserBean.loggedInUserModel.role})"
+                            style="padding: 5px 10px; margin: 5px 10px; font-weight: bold; font-style: inherit"/>
 
                     <p:commandButton actionListener="#{loginRequestBean.doLogout()}"
                                      onclick="windows.open('/xhtml/login.xhtml', '_blank')"

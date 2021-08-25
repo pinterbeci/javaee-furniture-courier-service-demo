@@ -20,7 +20,6 @@ public class Furniture extends AbstractFurniture {
     @Column(name = "furniture_price", nullable = false)
     private int price;
 
-
     public Furniture() {
     }
 

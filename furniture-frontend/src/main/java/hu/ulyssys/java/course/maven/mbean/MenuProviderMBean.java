@@ -24,6 +24,7 @@ public class MenuProviderMBean {
 
     public MenuModel getMenuModel() {
         DefaultMenuModel menuModel = new DefaultMenuModel();
+
         service.getAll().forEach(menuItem -> {
             addMenuItem(menuModel, menuItem);
         });
@@ -37,9 +38,12 @@ public class MenuProviderMBean {
         element.setHref(menuItem.getUrl());
         element.setValue(menuItem.getLabel());
 
+
         if (Boolean.FALSE.equals(menuItem.getAdminFunction()) || menuItem.getAdminFunction() == null
-                || (Boolean.TRUE.equals(menuItem.getAdminFunction()) && loggedInUserBean.isAdmin()))
+                || (Boolean.TRUE.equals(menuItem.getAdminFunction()) && loggedInUserBean.isAdmin())) {
             menuModel.getElements().add(element);
+        }
+
 
     }
 }
