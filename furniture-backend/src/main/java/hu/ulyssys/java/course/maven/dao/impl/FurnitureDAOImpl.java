@@ -8,14 +8,12 @@ import hu.ulyssys.java.course.maven.service.FurnitureService;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 public class FurnitureDAOImpl extends CoreDAOImpl<Furniture> implements FurnitureDAO {
-
-    @Inject
-    private FurnitureService furnitureList;
 
     @Override
     protected Class<Furniture> getManagedClass() {
@@ -30,4 +28,8 @@ public class FurnitureDAOImpl extends CoreDAOImpl<Furniture> implements Furnitur
         query.setParameter("id", id);
         return query.getResultList();
     }
+
+
+
+
 }

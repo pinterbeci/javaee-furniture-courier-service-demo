@@ -1,12 +1,12 @@
 package hu.ulyssys.java.course.maven.rest;
 
-import hu.ulyssys.java.course.maven.entity.AppUserRole;
 import hu.ulyssys.java.course.maven.entity.Courier;
+import hu.ulyssys.java.course.maven.mbean.LoggedInUserBean;
 import hu.ulyssys.java.course.maven.rest.model.CourierRestModel;
-import hu.ulyssys.java.course.maven.rest.model.OrderRestModel;
 import hu.ulyssys.java.course.maven.service.AppUserService;
 import hu.ulyssys.java.course.maven.service.CourierService;
 import hu.ulyssys.java.course.maven.service.OrderService;
+
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -22,9 +22,6 @@ public class CourierRestService {
 
     @Inject
     private OrderService orderService;
-
-    @Inject
-    private AppUserService appUserService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -56,6 +53,8 @@ public class CourierRestService {
         if (entity == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        orderService.deleteOrderByCourierID(entity.getId());
+        courierService.deleteCourierFromOrder(entity.getId());
         courierService.remove(entity);
         return Response.ok().build();
     }
@@ -70,9 +69,8 @@ public class CourierRestService {
         courier.setFirstName(model.getFirstName());
         courier.setLastName(model.getLastName());
         courier.setPhoneNumber(model.getPhoneNumber());
-        courier.setCreatedDate(model.getCreatedDate());
-        //todo ha lesz bejelentkezés, akkor ide USERt kell rendelni!!!
-        courier.setCreatedUser(AppUserRole.USER);
+        courier.setCreatedDate(new Date());
+        courier.setCreatedUserID(model.getCreatedUserID());
         courierService.add(courier);
         return Response.ok(createModelFromEntity(courier)).build();
     }
@@ -86,10 +84,9 @@ public class CourierRestService {
         if (courier == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-
         courier.setModifiedDate(new Date());
         courier.setModifiedDate(model.getCreatedDate());
-        courier.setModifierUser(AppUserRole.ADMIN);
+        courier.setModifierUserID(model.getModifierUserID());
         courier.setPhoneNumber(model.getPhoneNumber());
         courier.setLastName(model.getLastName());
         courier.setFirstName(model.getFirstName());
@@ -106,8 +103,7 @@ public class CourierRestService {
         model.setLastName(courier.getLastName());
         model.setPhoneNumber(courier.getPhoneNumber());
         model.setCreatedDate(courier.getCreatedDate());
-        //todo ha lesz bejelentkezés, akkor ide USERt kell rendelni!!!
-        model.setCreatedUserID(null);
+        model.setCreatedUserID(courier.getCreatedUserID());
 
         return model;
     }

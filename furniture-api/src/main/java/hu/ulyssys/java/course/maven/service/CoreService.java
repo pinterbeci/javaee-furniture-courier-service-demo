@@ -10,10 +10,10 @@ public interface CoreService<T extends AbstractEntity> {
 
     T findById(Long id);
 
-    void add(T vehicle);
+    void add(T entity);
 
-    void remove(T vehicle);
+    void remove(T entity);
 
-    void update(T vehicle);
+    void update(T entity);
 
 }

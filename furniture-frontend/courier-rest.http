@@ -2,7 +2,7 @@ GET http://localhost:8080/api/courier
 Accept: application/json
 ###
 
-GET http://localhost:8080/api/courier/3
+GET http://localhost:8080/api/courier/4
 Accept: application/json
 
 ###
@@ -12,10 +12,11 @@ POST http://localhost:8080/api/courier
 Content-Type: application/json
 
 {
-  "createdDate": "2021-08-19T20:49:23.256Z[UTC]",
-  "firstName": "Sándor",
-  "lastName": "Tóth",
-  "phoneNumber": "+36302144123"
+  "createdDate": "2021-08-23T14:13:01.323Z[UTC]",
+  "createdUserID": 5,
+  "firstName": "Húgó",
+  "lastName": "Mallo",
+  "phoneNumber": "+36704123412"
 }
 
 ###
@@ -25,9 +26,10 @@ Content-Type: application/json
 
 {
   "firstName": "Krisztián",
-  "id": 19,
+  "id": 8,
   "lastName": "Nagy",
-  "phoneNumber": "+36705566777"
+  "phoneNumber": "+36701122333",
+  "createdUserID": 5
 }
 
 ###

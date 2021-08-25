@@ -4,50 +4,22 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
       xml:lang="en" lang="en">
 <body>
 <ui:composition template="layout/mainTemplate.xhtml">
 
-    <ui:define name="title">AppUser demo</ui:define>
+    <ui:define name="title">Felhasználó karbantartó</ui:define>
     <ui:define name="content">
         <h:form id="form">
             <p:growl id="growl" showDetail="false"/>
-            <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
-                                     actionListener="#{appUserCRUDMBean.initSave}" update="@([id$=appUserForm])"
-                                     oncomplete="PF('appUserDialog').show()"/>
-                    <p:commandButton id="delete"
-                                     icon="pi pi-times"
-                                     process="@this" value="Törlés" actionListener="#{appUserCRUDMBean.remove}"
-                                     update="@form">
-                        <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
-                    </p:commandButton>
-                    <p:commandButton id="update" process="@this"
-                                     value="Módosítás" icon="pi pi-pencil" update="@([id$=appUserForm])"
-                                     oncomplete="PF('appUserDialog').show()"/>
-                </p:toolbarGroup>
-                <p:toolbarGroup align="right">
-                    <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
 
-                    <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
+            <crud:crudFunctions bean="#{appUserCRUDMBean}" onCompleteShowDialog="PF('appUserDialog').show()"
+                                onCompleteUpdate="@([id$=appUserForm])"/>
 
-                    <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="xls" target="table" fileName="export"/>
-                    </p:commandButton>
-
-                    <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
-                    </p:commandButton>
-
-                    <!-- TODO Utf-8 karakter -->
-                    <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="pdf" target="table" fileName="export"/>
-                    </p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>
 
             <p:dataTable id="table" paginator="true" value="#{appUserCRUDMBean.list}" var="appUser"
+                         rendered="#{loggedInUserBean.loggedIn}"
                          selectionMode="single" selection="#{appUserCRUDMBean.selectedEntity}" rowKey="#{appUser.id}"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
@@ -95,7 +67,9 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Jelszó"/>
-                    <p:password feedback="true" value="#{appUserCRUDMBean.selectedEntity.passwordHash}"/>
+                    <p:password feedback="true" value="#{appUserCRUDMBean.selectedEntity.passwordHash}"
+                                rendered="#{appUserCRUDMBean.selectedEntity.createdDate == null}"
+                    />
                     <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{appUserCRUDMBean.save()}"
                                      process="formPanel" update=":form"/>
                 </p:panelGrid>

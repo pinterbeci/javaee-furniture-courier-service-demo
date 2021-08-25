@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
+      xml:lang="en" lang="en">
+<body>
+
+<ui:composition template="layout/mainTemplate.xhtml">
+
+  <ui:define name="title">Menü karbantartó</ui:define>
+
+  <ui:define name="content">
+    <h:form id="form" style="margin: 20px auto;">
+
+      <p:growl id="growl" showDetail="false"/>
+      <crud:crudFunctions bean="#{menuItemCRUDMBean}" onCompleteShowDialog="PF('menuDialog').show()"
+                         onCompleteUpdate="@([id$=menuForm])"/>
+
+      <p:dataTable id="table" value="#{menuItemCRUDMBean.list}" var="menu" rows="10"
+                   rendered="#{loggedInUserBean.loggedIn}"
+                   paginator="true" selectionMode="single" selection="#{menuItemCRUDMBean.selectedEntity}"
+                   rowKey="#{menu.id}"
+                   paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                   currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                   rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+        <p:ajax event="rowSelect" update="@form"/>
+
+        <p:column sortBy="#{menu.id}" filterBy="#{menu.id}" filterMatchMode="contains"
+                  headerText="ID">
+          <h:outputText value="#{menu.id}"/>
+        </p:column>
+
+        <p:column sortBy="#{menu.url}" filterBy="#{menu.url}" filterMatchMode="contains"
+                  headerText="URL">
+          <h:outputText value="#{menu.url}"/>
+        </p:column>
+
+        <p:column sortBy="#{menu.label}" filterBy="#{menu.label}" filterMatchMode="contains"
+                  headerText="Label">
+          <h:outputText value="#{menu.label}"/>
+        </p:column>
+
+      </p:dataTable>
+
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+        <p:commandButton value="Nem" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+        <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes"/>
+      </p:confirmDialog>
+    </h:form>
+
+    <p:dialog id="menuDialog" widgetVar="menuDialog" header="Form" modal="true" closable="true">
+      <h:form id="menuForm">
+        <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 600px">
+          <p:outputLabel value="URL"/>
+          <p:inputText value="#{menuItemCRUDMBean.selectedEntity.url}" required="true"
+                       requiredMessage="URL kötelező"/>
+
+          <p:outputLabel value="Label"/>
+          <p:inputText thousandSeparator="" decimalPlaces="0"
+                       value="#{menuItemCRUDMBean.selectedEntity.label}" required="true"
+                       requiredMessage="Label kötelező"/>
+
+          <p:outputLabel value="Admin funkció"/>
+          <p:selectBooleanCheckbox value="#{menuItemCRUDMBean.selectedEntity.adminFunction}"/>
+
+          <p:commandButton value="Mentés" icon="pi pi-save" actionListener="#{menuItemCRUDMBean.save()}"
+                           process="formPanel" update=":form"/>
+        </p:panelGrid>
+      </h:form>
+
+    </p:dialog>
+
+  </ui:define>
+</ui:composition>
+</body>
+</html>

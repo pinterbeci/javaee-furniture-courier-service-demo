@@ -27,15 +27,13 @@ public class AppUserCRUDMBean extends CoreCRUDMBean<AppUser> implements Serializ
 
 
     @Inject
-    public AppUserCRUDMBean(AppUserService userService) {
+    public AppUserCRUDMBean(AppUserService userService, LoggedInUserBean loggedInUserBean) {
         super(userService);
-
-        //todo
-   /*     if (!loggedInUserBean.isAdmin()) {
+        if (!loggedInUserBean.isAdmin()) {
             FacesContext.getCurrentInstance().addMessage("",
                     new FacesMessage("Nincs jogosultsága ehhez a művelethez!"));
             throw new SecurityException("Nincs jogosultsága ehhez a művelethez!");
-        }*/
+        }
 
     }
 
@@ -61,27 +59,16 @@ public class AppUserCRUDMBean extends CoreCRUDMBean<AppUser> implements Serializ
 
     @Override
     protected AppUser initNewEntity() {
-
-        AppUser appUser = new AppUser();
-        appUser.setPasswordHash(UUID.randomUUID().toString());
-        return appUser;
+        return new AppUser();
     }
 
-    //todo bcrypt
-    private String hashPassword(String rowPassword) throws InvalidKeySpecException, NoSuchAlgorithmException {
-
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
-        KeySpec spec = new PBEKeySpec(rowPassword.toCharArray(), salt, 65536, 128);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-
-        byte[] hash = factory.generateSecret(spec).getEncoded();
+    private String hashPassword(String rowPassword) {
+        byte[] hash = DigestUtils.md5(rowPassword);
         return bytesToHex(hash);
     }
 
-    private static String bytesToHex(byte[] hash) {
+    protected static String bytesToHex(byte[] hash) {
+
         StringBuilder hexString = new StringBuilder(2 * hash.length);
         for (int i = 0; i < hash.length; i++) {
             String hex = Integer.toHexString(0xff & hash[i]);

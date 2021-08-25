@@ -28,7 +28,7 @@ public class MenuProviderMBean {
             addMenuItem(menuModel, menuItem);
         });
 
-        return menuModel;
+        return loggedInUserBean.isLoggedIn() ? menuModel : null;
     }
 
     private void addMenuItem(DefaultMenuModel menuModel, MenuItem menuItem) {

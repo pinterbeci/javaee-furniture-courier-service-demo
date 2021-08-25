@@ -12,10 +12,8 @@ import java.util.List;
 
 public abstract class CoreCRUDMBean<T extends AbstractEntity> implements Serializable {
 
-
     private List<T> list;
     private T selectedEntity;
-
 
     protected CoreService<T> service;
 

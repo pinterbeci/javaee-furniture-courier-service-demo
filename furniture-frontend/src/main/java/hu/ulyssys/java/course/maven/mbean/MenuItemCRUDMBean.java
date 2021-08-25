@@ -14,11 +14,9 @@ import java.io.Serializable;
 @ViewScoped
 public class MenuItemCRUDMBean extends CoreCRUDMBean<MenuItem> implements Serializable {
 
-
     @Inject
     public MenuItemCRUDMBean(MenuItemService service, LoggedInUserBean loggedInUserBean) {
         super(service);
-
         if (!loggedInUserBean.isAdmin()) {
             FacesContext.getCurrentInstance().addMessage("",
                     new FacesMessage("Nincs jogosultsága ehhez a művelethez!"));

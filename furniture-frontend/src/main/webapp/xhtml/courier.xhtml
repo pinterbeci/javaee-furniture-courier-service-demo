@@ -4,50 +4,21 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
       xml:lang="en" lang="en">
 <body>
 <ui:composition template="layout/mainTemplate.xhtml">
 
-    <ui:define name="title">Courier demo</ui:define>
+    <ui:define name="title">Futár Demo</ui:define>
     <ui:define name="content">
         <h:form id="form">
             <p:growl id="growl" showDetail="false"/>
-            <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
-                                     actionListener="#{courierCRUDMBean.initSave}" update="@([id$=courierForm])"
-                                     oncomplete="PF('courierDialog').show()"/>
-                    <p:commandButton id="delete"
-                                     icon="pi pi-times"
-                                     process="@this" value="Törlés" actionListener="#{courierCRUDMBean.remove}"
-                                     update="@form">
-                        <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
-                    </p:commandButton>
-                    <p:commandButton id="update" process="@this"
-                                     value="Módosítás" icon="pi pi-pencil" update="@([id$=courierForm])"
-                                     oncomplete="PF('courierDialog').show()"/>
-                </p:toolbarGroup>
-                <p:toolbarGroup align="right">
-                    <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
 
-                    <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
-
-                    <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="xls" target="table" fileName="export"/>
-                    </p:commandButton>
-
-                    <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
-                    </p:commandButton>
-
-                    <!-- TODO Utf-8 karakter -->
-                    <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="pdf" target="table" fileName="export"/>
-                    </p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>
+            <crud:crudFunctions bean="#{courierCRUDMBean}" onCompleteShowDialog="PF('courierDialog').show()"
+                                onCompleteUpdate="@([id$=courierForm])"/>
 
             <p:dataTable id="table" paginator="true" value="#{courierCRUDMBean.list}" var="courier"
+                         rendered="#{loggedInUserBean.loggedIn}"
                          selectionMode="single" selection="#{courierCRUDMBean.selectedEntity}" rowKey="#{courier.id}"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
@@ -79,7 +50,8 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:dialog id="courierDialog" widgetVar="courierDialog" header="Futár adatainak megadása" modal="true" closable="true">
+        <p:dialog id="courierDialog" widgetVar="courierDialog" header="Futár adatainak megadása" modal="true"
+                  closable="true">
             <h:form id="courierForm">
                 <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 600px">
                     <p:outputLabel value="Keresztnév"/>

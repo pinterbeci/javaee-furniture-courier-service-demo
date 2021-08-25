@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Regisztráció felület</title>
+</h:head>
+<h:body>
+    <p:growl id="growl" showDetail="false"/>
+
+    <h:form id="menuBarForm">
+        <p:menubar model="#{menuProviderMBean.getMenuModel()}" style="margin: 5px auto; text-align: center"/>
+    </h:form>
+
+    <h:form style="margin: 100px auto; text-align: center">
+        <p:commandButton rendered="#{loggedInUserBean.loggedIn==false}"
+                         oncomplete="PF('registerDialog').show()" value="Regisztráció"
+                         icon="pi pi-fw pi-user-plus"
+                         styleClass="ui-button-info" style="margin: 5px;"/>
+
+        <p:commandButton rendered="#{loggedInUserBean.loggedIn==false}"
+                         oncomplete="PF('loginDialog').show()" value="Bejelentkezés"
+                         icon="pi pi-fw pi-sign-in"
+                         styleClass="ui-button-info" style="margin: 5px;"/>
+    </h:form>
+
+
+    <h:form id="userAddingForm" style="text-align: center; width: 700px;">
+        <p:dialog modal="true" widgetVar="registerDialog" id="registerDialog" header="Regisztráció">
+            <h:form id="registerForm">
+
+                <p:outputLabel value="Felhasználónév" style="text-align: center"/>
+                <p:inputText value="#{registerUserBean.username}"
+                             style="margin: 10px"/>
+
+                <br/>
+
+                <p:outputLabel value="Jelszó" style="padding-right: 65px"/>
+                <p:password value="#{registerUserBean.password}"
+                            style="margin: 10px auto"/>
+
+                <p:separator style="width: 5px; background: gray; "/>
+                <p:commandButton value="Regisztrálok!" actionListener="#{registerUserBean.registrateUser()}"
+                                 update="@([id$=registerForm]) @([id$crudFunctionsToolbar])"
+                                 style="align-content: center"/>
+            </h:form>
+        </p:dialog>
+
+    </h:form>
+    <h:form style="text-align: center; width: 700px;">
+        <p:dialog modal="true" widgetVar="loginDialog" id="loginDialog" header="Belépés">
+            <h:form id="loginForm" style="width: 500px; text-align: center; ">
+
+                <p:outputLabel value="Felhasználó név" style="text-align: center"/>
+                <p:inputText value="#{loginRequestBean.loginModel.username}"
+                             style="margin: 10px"/>
+
+                <br/>
+
+                <p:outputLabel value="Jelszó" style="padding-right: 65px"/>
+                <p:password value="#{loginRequestBean.loginModel.password}"
+                            style="margin: 10px auto"/>
+
+                <p:separator style="width: 5px; background: gray; "/>
+                <p:commandButton value="Belépés" actionListener="#{loginRequestBean.doLogin}"
+                                 update="@([id$=menuBarForm]) @([id$crudFunctionsToolbar])"
+                                 style="align-content: center"/>
+            </h:form>
+        </p:dialog>
+    </h:form>
+
+</h:body>
+</html>

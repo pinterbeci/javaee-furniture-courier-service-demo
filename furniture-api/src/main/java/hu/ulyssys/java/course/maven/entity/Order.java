@@ -13,6 +13,7 @@ public class Order extends AbstractFurniture {
     @Column(name = "delivery_date", nullable = false)
     private Date deliveryDate;
 
+
     @ManyToOne
     @JoinColumn(name = "courier_id")
     private Courier courier;
@@ -22,9 +23,8 @@ public class Order extends AbstractFurniture {
     private AppUser customer;
 
 
-
     @JoinColumn(name = "furniture_list")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.PERSIST)
     private List<Furniture> furnitureList = new ArrayList<>();
 
 

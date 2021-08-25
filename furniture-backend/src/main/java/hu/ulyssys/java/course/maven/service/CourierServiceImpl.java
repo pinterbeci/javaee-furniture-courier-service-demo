@@ -8,4 +8,8 @@ import javax.ejb.Stateless;
 @Stateless
 public class CourierServiceImpl extends AbstractServiceImpl<Courier> implements CourierService {
 
+    @Override
+    public void deleteCourierFromOrder(Long id) {
+        ((CourierDAO)dao).deleteCourierFromOrder(id);
+    }
 }

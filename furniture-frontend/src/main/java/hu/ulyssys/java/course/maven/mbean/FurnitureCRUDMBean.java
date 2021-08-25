@@ -17,12 +17,16 @@ import java.util.Date;
 
 @Named
 @ViewScoped
-public class FurnitureCRUDMBean extends OrderAwareCRUDMBean<Furniture> implements Serializable {
+public class FurnitureCRUDMBean extends CoreCRUDMBean<Furniture> implements Serializable {
 
     @Inject
-    public FurnitureCRUDMBean(FurnitureService service, OrderService orderService) {
-        super(service, orderService);
+    private LoggedInUserBean loggedInUserBean;
+
+    @Inject
+    public FurnitureCRUDMBean(FurnitureService service) {
+        super(service);
     }
+
 
     @Override
     protected String dialogName() {
@@ -41,11 +45,9 @@ public class FurnitureCRUDMBean extends OrderAwareCRUDMBean<Furniture> implement
                 getSelectedEntity().setPrice(getSelectedEntity().getPrice());
                 getSelectedEntity().setFurnitureName(getSelectedEntity().getFurnitureName());
                 getSelectedEntity().setDescription(getSelectedEntity().getDescription());
-                //todo user hozzárendelés, ha van belépés
-                getSelectedEntity().setCreatedUser(AppUserRole.USER);
+                getSelectedEntity().setCreatedUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
             } else {
-                //todo itt is :D
-                getSelectedEntity().setModifierUser(AppUserRole.USER);
+                getSelectedEntity().setModifierUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
                 getSelectedEntity().setModifiedDate(new Date());
                 service.update(getSelectedEntity());
             }

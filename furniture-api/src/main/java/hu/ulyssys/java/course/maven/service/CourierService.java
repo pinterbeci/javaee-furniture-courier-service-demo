@@ -4,4 +4,5 @@ import hu.ulyssys.java.course.maven.entity.Courier;
 
 public interface CourierService extends CoreService<Courier> {
 
+    void deleteCourierFromOrder(Long id);
 }

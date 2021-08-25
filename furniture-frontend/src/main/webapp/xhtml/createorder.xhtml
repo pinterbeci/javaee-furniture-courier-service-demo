@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
+      xml:lang="en" lang="en">
+<body>
+<ui:composition template="layout/mainTemplate.xhtml">
+
+    <ui:define name="title">Rendelés Demo</ui:define>
+    <ui:define name="content">
+        <h:form id="form" style="text-align: center; margin: 15px auto;">
+            <p:growl id="growl" showDetail="false"/>
+
+            <crud:crudFunctions bean="#{orderCRUDMBean}" onCompleteShowDialog="PF('newOrderDialog').show()"
+                                onCompleteUpdate="@([id$=newOrderForm])"/>
+
+
+            <p:commandButton oncomplete="PF('newOrderDialog').show()" value="Új rendelés!"
+                             icon="pi pi-fw pi-shopping-cart"
+                             styleClass="ui-button-info" style="margin: 15px;" rendered="#{loggedInUserBean.loggedIn}"/>
+
+        </h:form>
+
+        <p:dialog id="newOrderDialog" widgetVar="newOrderDialog" header="Rendelés adatainak megadása" modal="true"
+                  closable="true" width="70%" height="500" blockScroll="false" resizable="true">
+
+            <h:form id="newOrderForm">
+                <p:panelGrid layout="grid" columns="2" id="formPanel">
+
+                    <p:outputLabel value="Település"/>
+                    <p:inputText value="#{orderCRUDMBean.selectedEntity.settlement}" required="true"
+                                 requiredMessage="A település kötelező"/>
+
+                    <p:outputLabel value="Közterület neve"/>
+                    <p:inputText value="#{orderCRUDMBean.selectedEntity.publicSpace}" required="true"
+                                 requiredMessage="A közterület neve kötelező"/>
+
+                    <p:outputLabel value="Közterület jellege"/>
+                    <p:selectOneMenu thousandSeparator="" decimalPlaces="0"
+                                     style="width: 200px; align-content: center"
+                                     value="#{orderCRUDMBean.selectedEntity.natureOfPublicSpace}" required="true"
+                                     requiredMessage="Közterület Jellege kötelező!">
+                        <f:selectItem itemValue="#{null}" itemLabel="Kérem válasszon!"/>
+                        <f:selectItem itemValue="tér" itemLabel="tér"/>
+                        <f:selectItem itemValue="út" itemLabel="út"/>
+                        <f:selectItem itemValue="utca" itemLabel="utca"/>
+                        <f:selectItem itemValue="köz" itemLabel="köz"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Házszám"/>
+                    <p:inputText value="#{orderCRUDMBean.selectedEntity.addressNumber}"
+                                 required="true"
+                                 requiredMessage="A házszám kötelező"/>
+
+                    <p:outputLabel for="basic" value="Kiszállítás dátuma"/>
+                    <p:datePicker id="basic" value="#{orderCRUDMBean.selectedEntity.deliveryDate}"
+                                  mindate="#{orderCRUDMBean.minDate}"/>
+
+                    <p:outputLabel value="Bútorok listája"/>
+                    <p:selectManyMenu id="listOfFurniture" value="#{orderCRUDMBean.selectedFurnitureList}"
+                                      var="f" filter="true" filterMatchMode="contains" showCheckbox="true"
+                                      styleClass="manymenu-advanced" style="width: 300px; align-content: center">
+                        <f:selectItems value="#{orderCRUDMBean.furnitureList}" var="furniture"
+                                       itemLabel="#{furniture.furnitureName}"
+                                       itemValue="#{furniture}"/>
+                        <p:column>
+                            <h:outputText value="#{f.furnitureName} -> #{f.price} HUF"/>
+                        </p:column>
+                    </p:selectManyMenu>
+
+                    <p:commandButton value="Rendelés feladása!" icon="pi pi-save"
+                                     actionListener="#{orderCRUDMBean.save()}"
+                                     oncomplete="PF('newOrderDialog').hide()"
+                                     process="formPanel" update="@([id$=newOrderForm])" style="float:right"/>
+                </p:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+</ui:composition>
+</body>
+</html>

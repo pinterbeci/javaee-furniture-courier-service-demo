@@ -9,6 +9,7 @@ import java.util.List;
 
 @Stateless
 public class AppUserDAOImpl extends CoreDAOImpl<AppUser> implements AppUserDAO {
+
     @Override
     protected Class<AppUser> getManagedClass() {
         return AppUser.class;

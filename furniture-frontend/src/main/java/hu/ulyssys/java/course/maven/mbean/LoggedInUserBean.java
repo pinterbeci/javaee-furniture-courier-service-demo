@@ -12,7 +12,6 @@ import java.io.Serializable;
 @SessionScoped
 public class LoggedInUserBean implements Serializable {
 
-
     private LoggedInUserModel loggedInUserModel;
 
 
@@ -29,7 +28,6 @@ public class LoggedInUserBean implements Serializable {
     }
 
     public boolean isAdmin() {
-
         return isLoggedIn() && loggedInUserModel.getRole().equals(AppUserRole.ADMIN);
     }
 }

@@ -12,11 +12,10 @@
 <composite:implementation>
     <p:outputPanel id="crudFunctionsToolbar">
 
-        <p:toolbar rendered="#{loggedInUserBean.isLoggedIn()}">
+        <p:toolbar rendered="#{loggedInUserBean.admin}">
             <p:toolbarGroup>
                 <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
-                                 disabled="#{cc.attrs.bean.selectedEntity.id==null}"
-                                 actionListener="#{cc.attrs.bean.initSave}" update="#{cc.attrs.onCompleteUpdate}"
+                                 actionListener="#{cc.attrs.bean.initSave()}" update="#{cc.attrs.onCompleteUpdate}"
                                  oncomplete="#{cc.attrs.onCompleteShowDialog}"/>
                 <p:commandButton disabled="#{cc.attrs.bean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
                                  process="@this" value="Törlés" actionListener="#{cc.attrs.bean.remove}"

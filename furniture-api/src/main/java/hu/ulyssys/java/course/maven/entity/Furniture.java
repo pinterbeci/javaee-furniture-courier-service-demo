@@ -2,6 +2,7 @@ package hu.ulyssys.java.course.maven.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 

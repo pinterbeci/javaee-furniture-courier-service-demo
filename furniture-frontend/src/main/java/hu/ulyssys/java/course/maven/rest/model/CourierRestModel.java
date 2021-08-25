@@ -1,7 +1,5 @@
 package hu.ulyssys.java.course.maven.rest.model;
 
-import java.util.Date;
-
 public class CourierRestModel extends CoreRestModel {
 
     private String firstName;

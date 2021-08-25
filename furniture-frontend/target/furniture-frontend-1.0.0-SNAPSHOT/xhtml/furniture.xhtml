@@ -4,26 +4,27 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
       xml:lang="en" lang="en">
 <body>
 <ui:composition template="layout/mainTemplate.xhtml">
 
-    <ui:define name="title">Furniture demo</ui:define>
+    <ui:define name="title">Bútor Demo</ui:define>
     <ui:define name="content">
         <h:form id="form">
             <p:growl id="growl" showDetail="false"/>
-            <p:toolbar>
+
+           <!-- <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
                                      actionListener="#{furnitureCRUDMBean.initSave}" update="@([id$=furnitureForm])"
                                      oncomplete="PF('furnitureDialog').show()"/>
-                    <p:commandButton id="delete"
-                                     icon="pi pi-times"
+                    <p:commandButton disabled="#{furnitureCRUDMBean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
                                      process="@this" value="Törlés" actionListener="#{furnitureCRUDMBean.remove}"
                                      update="@form">
                         <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
                     </p:commandButton>
-                    <p:commandButton id="update" process="@this"
+                    <p:commandButton disabled="#{furnitureCRUDMBean.selectedEntity.id==null}" id="update" process="@this"
                                      value="Módosítás" icon="pi pi-pencil" update="@([id$=furnitureForm])"
                                      oncomplete="PF('furnitureDialog').show()"/>
                 </p:toolbarGroup>
@@ -40,14 +41,19 @@
                         <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
                     </p:commandButton>
 
-                    <!-- TODO Utf-8 karakter -->
+
                     <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
                         <p:dataExporter type="pdf" target="table" fileName="export"/>
                     </p:commandButton>
                 </p:toolbarGroup>
-            </p:toolbar>
+            </p:toolbar>-->
+
+            <crud:crudFunctions bean="#{furnitureCRUDMBean}" onCompleteShowDialog="PF('furnitureDialog').show()"
+                                onCompleteUpdate="@([id$=furnitureForm])"/>
+
 
             <p:dataTable id="table" paginator="true" value="#{furnitureCRUDMBean.list}" var="furniture"
+                         rendered="#{loggedInUserBean.loggedIn}"
                          selectionMode="single" selection="#{furnitureCRUDMBean.selectedEntity}"
                          rowKey="#{furniture.id}"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -84,7 +90,8 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:dialog id="furnitureDialog" widgetVar="furnitureDialog" header="Bútor adatainak megadása" modal="true" closable="true">
+        <p:dialog id="furnitureDialog" widgetVar="furnitureDialog" header="Bútor adatainak megadása" modal="true"
+                  closable="true">
             <h:form id="furnitureForm">
                 <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 600px">
                     <p:outputLabel value="Bútor név"/>

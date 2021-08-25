@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:crud="http://java.sun.com/jsf/composite/crud"
+      xml:lang="en" lang="en">
+<body>
+<ui:composition template="layout/mainTemplate.xhtml">
+
+    <ui:define name="title">Bútor Demo</ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="growl" showDetail="false"/>
+
+            <crud:crudFunctions bean="#{orderCRUDMBean}" onCompleteShowDialog="PF('orderDialog').show()"
+                                onCompleteUpdate="@([id$=orderForm])"/>
+
+            <p:dataTable id="table" paginator="true" value="#{orderCRUDMBean.customerOrders()}" var="order"
+                         rendered="#{loggedInUserBean.loggedIn}"
+                         rowKey="#{order.id}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <p:ajax event="rowSelect" update="@form"/>
+
+                <p:column style="width:2rem">
+                    <p:rowToggler/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.id}" filterBy="#{order.id}"
+                          filterMatchMode="contains"
+                          headerText="ID">
+                    <h:outputText value="#{order.id}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.deliveryDate}" filterBy="#{order.deliveryDate}"
+                          filterMatchMode="contains"
+                          headerText="Kiszállítás dátuma">
+                    <h:outputText value="#{order.deliveryDate}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.settlement}" filterBy="#{order.settlement}"
+                          filterMatchMode="contains"
+                          headerText="Település neve">
+                    <h:outputText value="#{order.settlement}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.publicSpace}"
+                          filterBy="#{order.natureOfPublicSpace}"
+                          filterMatchMode="contains"
+                          headerText="Közterület neve">
+                    <h:outputText value="#{order.publicSpace}"/>
+                </p:column>
+                <p:column toggleable="false" sortBy="#{order.natureOfPublicSpace}"
+                          filterBy="#{order.natureOfPublicSpace}"
+                          filterMatchMode="contains"
+                          headerText="Közterület jellege">
+                    <h:outputText value="#{order.natureOfPublicSpace}"/>
+                </p:column>
+
+                <p:column toggleable="false" sortBy="#{order.addressNumber}" filterBy="#{order.addressNumber}"
+                          filterMatchMode="contains"
+                          headerText="Házszám">
+                    <h:outputText value="#{order.addressNumber}"/>
+                </p:column>
+
+
+                <p:column toggleable="false" sortBy="#{order.customer.username}" filterBy="#{order.customer.username}"
+                          filterMatchMode="contains"
+                          headerText="Megrendelő felhasználóneve">
+                    <h:outputText value="#{order.customer.username}"/>
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+</body>
+</html>

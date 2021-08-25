@@ -13,4 +13,5 @@ public class FurnitureServiceImpl extends AbstractServiceImpl<Furniture> impleme
         return ((FurnitureDAO) dao).findByOrderID(id);
     }
 
+
 }

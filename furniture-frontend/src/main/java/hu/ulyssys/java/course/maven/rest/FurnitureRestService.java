@@ -3,6 +3,7 @@ package hu.ulyssys.java.course.maven.rest;
 import hu.ulyssys.java.course.maven.entity.AppUserRole;
 import hu.ulyssys.java.course.maven.entity.Courier;
 import hu.ulyssys.java.course.maven.entity.Furniture;
+import hu.ulyssys.java.course.maven.mbean.LoggedInUserBean;
 import hu.ulyssys.java.course.maven.rest.model.CourierRestModel;
 import hu.ulyssys.java.course.maven.rest.model.FurnitureRestModel;
 import hu.ulyssys.java.course.maven.service.AppUserService;
@@ -19,14 +20,10 @@ import java.util.stream.Collectors;
 
 @Path("/furniture")
 public class FurnitureRestService {
+
     @Inject
     private FurnitureService furnitureService;
 
-    @Inject
-    private OrderService orderService;
-
-    @Inject
-    private AppUserService appUserService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,8 +71,8 @@ public class FurnitureRestService {
         furniture.setDescription(model.getDescription());
 
         furniture.setCreatedDate(model.getCreatedDate());
-        //todo ha lesz bejelentkezés, akkor ide USERt kell rendelni!!!
-        furniture.setCreatedUser(AppUserRole.USER);
+        furniture.setCreatedUserID(model.getCreatedUserID());
+
         furnitureService.add(furniture);
         return Response.ok(createModelFromEntity(furniture)).build();
     }
@@ -92,7 +89,7 @@ public class FurnitureRestService {
 
         furniture.setModifiedDate(new Date());
         furniture.setModifiedDate(model.getCreatedDate());
-        furniture.setModifierUser(AppUserRole.ADMIN);
+        furniture.setModifierUserID(model.getModifierUserID());
         furniture.setFurnitureName(model.getFurnitureName());
         furniture.setPrice(model.getPrice());
         furniture.setDescription(model.getDescription());
@@ -105,13 +102,11 @@ public class FurnitureRestService {
         FurnitureRestModel model = new FurnitureRestModel();
 
         model.setId(furniture.getId());
-        furniture.setFurnitureName(model.getFurnitureName());
-        furniture.setPrice(model.getPrice());
-        furniture.setDescription(model.getDescription());
-
-        model.setCreatedDate(furniture.getCreatedDate());
-        //todo ha lesz bejelentkezés, akkor ide USERt kell rendelni!!!
-        model.setCreatedUserID(null);
+        model.setFurnitureName(furniture.getFurnitureName());
+        model.setPrice(furniture.getPrice());
+        model.setDescription(furniture.getDescription());
+        model.setCreatedDate(new Date());
+        model.setCreatedUserID(furniture.getCreatedUserID());
 
         return model;
     }

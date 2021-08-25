@@ -1,7 +1,5 @@
 package hu.ulyssys.java.course.maven.mbean;
 
-import hu.ulyssys.java.course.maven.entity.AppUser;
-import hu.ulyssys.java.course.maven.entity.AppUserRole;
 import hu.ulyssys.java.course.maven.entity.Furniture;
 import hu.ulyssys.java.course.maven.entity.Order;
 import hu.ulyssys.java.course.maven.service.*;
@@ -15,20 +13,37 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Named
 @ViewScoped
-public class OrderCRUDMBean extends AbstractOrderCRUDMBean<Order> implements Serializable {
-
-    @Named
-    private Date minDate = new Date(Calendar.getInstance().getTime().getTime());
+public class OrderCRUDMBean extends OrderAwareCRUDMBean<Order> implements Serializable {
 
 
     @Inject
-    public OrderCRUDMBean(OrderService service, AppUserService customerService, CourierService courierService,
-                          FurnitureService furnitureService) {
-        super(service, customerService, courierService, furnitureService);
+    private OrderService orderService;
+
+    @Inject
+    private AppUserService appUserService;
+
+    @Inject
+    private LoggedInUserBean loggedInUserBean;
+
+    private List<Furniture> selectedFurnitureList;
+
+    @Inject
+    private FurnitureService furnitureService;
+
+    private Date minDate = new Date(Calendar.getInstance().getTime().getTime());
+
+    @Inject
+    public OrderCRUDMBean(OrderService service, FurnitureService furnitureService,
+                          CourierService courierService, AppUserService customerService) {
+        super(service, furnitureService, courierService, customerService);
     }
+
 
     @Override
     protected String dialogName() {
@@ -42,27 +57,31 @@ public class OrderCRUDMBean extends AbstractOrderCRUDMBean<Order> implements Ser
 
     @Override
     public void save() {
+
         try {
+            getSelectedEntity().setFurnitureList(getSelectedFurnitureList());
             if (getSelectedEntity().getId() == null) {
                 getSelectedEntity().setPublicSpace(getSelectedEntity().getPublicSpace());
                 getSelectedEntity().setNatureOfPublicSpace(getSelectedEntity().getNatureOfPublicSpace());
                 getSelectedEntity().setAddressNumber(getSelectedEntity().getAddressNumber());
-                getSelectedEntity().setCustomer(getSelectedEntity().getCustomer());
+                getSelectedEntity().setCustomer(appUserService.findByUsername(loggedInUserBean.getLoggedInUserModel().getUsername()));
                 getSelectedEntity().setCourier(getSelectedEntity().getCourier());
                 getSelectedEntity().setSettlement(getSelectedEntity().getSettlement());
                 getSelectedEntity().setDeliveryDate(getSelectedEntity().getDeliveryDate());
                 getSelectedEntity().setCreatedDate(new Date());
-                //todo user hozzárendelés, ha van belépés
-                getSelectedEntity().setCreatedUser(AppUserRole.USER);
+                getSelectedEntity().setCreatedUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
 
             } else {
-                //todo itt is :D
-                getSelectedEntity().setModifierUser(AppUserRole.USER);
+                getSelectedEntity().setModifierUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
                 getSelectedEntity().setModifiedDate(new Date());
-                service.update(getSelectedEntity());
             }
             super.save();
             PrimeFaces.current().executeScript("PF('" + dialogName() + "').hide()");
+
+            FacesContext.getCurrentInstance().addMessage("",
+                    new FacesMessage("Sikeres rendelés!"));
+
+
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
         }
@@ -71,4 +90,40 @@ public class OrderCRUDMBean extends AbstractOrderCRUDMBean<Order> implements Ser
     public Date getMinDate() {
         return minDate;
     }
-}
+
+    @Override
+    public Order getSelectedEntity() {
+        Order order = super.getSelectedEntity();
+        if (order != null) {
+            setSelectedFurnitureList(furnitureService.findByOrderID(order.getId()));
+        }
+        return super.getSelectedEntity();
+    }
+
+    public List<Furniture> getSelectedFurnitureList() {
+        return selectedFurnitureList;
+    }
+
+    public void setSelectedFurnitureList(List<Furniture> selectedFurnitureList) {
+        this.selectedFurnitureList = selectedFurnitureList;
+    }
+
+    public List<Order> customerOrders(){
+        return orderService.findOrderByCustomerID(loggedInUserBean.getLoggedInUserModel().getUserID());
+    }
+
+    public List<Furniture> customerOrderFurnitureList(){
+
+        //todo
+        return null ;
+
+    }
+
+    public List<Order> allOrders(){
+        //admin számára, futár kivételével minden adat szerepel
+        return orderService.findAllUserOrderForAdmin();
+    }
+
+
+
+    }

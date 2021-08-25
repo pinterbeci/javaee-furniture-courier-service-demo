@@ -10,6 +10,7 @@ public class MenuItem extends AbstractEntity {
     private String url;
     private String label;
     private Boolean adminFunction;
+    private Boolean showMenuItem;
 
     public String getUrl() {
         return url;
@@ -33,5 +34,13 @@ public class MenuItem extends AbstractEntity {
 
     public void setAdminFunction(Boolean adminFunction) {
         this.adminFunction = adminFunction;
+    }
+
+    public Boolean getShowMenuItem() {
+        return showMenuItem;
+    }
+
+    public void setShowMenuItem(Boolean showMenuItem) {
+        this.showMenuItem = showMenuItem;
     }
 }

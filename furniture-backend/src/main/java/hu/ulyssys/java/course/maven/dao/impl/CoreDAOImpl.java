@@ -18,7 +18,7 @@ public abstract class CoreDAOImpl<T extends AbstractEntity> implements CoreDAO<T
     @Override
     public List<T> findAll() {
         return entityManager.createQuery("select n from " + getManagedClass().getSimpleName()
-                + " n order by n.id ", getManagedClass()).getResultList();
+                + " n order by n.id  ", getManagedClass()).getResultList();
     }
 
     @Override

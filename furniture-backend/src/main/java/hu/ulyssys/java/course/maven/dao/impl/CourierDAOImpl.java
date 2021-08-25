@@ -2,6 +2,7 @@ package hu.ulyssys.java.course.maven.dao.impl;
 
 import hu.ulyssys.java.course.maven.dao.CourierDAO;
 import hu.ulyssys.java.course.maven.entity.Courier;
+import hu.ulyssys.java.course.maven.entity.Furniture;
 import hu.ulyssys.java.course.maven.entity.Order;
 
 import javax.ejb.Stateless;
@@ -17,9 +18,23 @@ public class CourierDAOImpl extends CoreDAOImpl<Courier> implements CourierDAO {
         return Courier.class;
     }
 
- /*   @Override
-    public void delete(Long id) {
-        entityManager.createQuery("DELETE FROM Courier c WHERE c.id =: id");
-        super.delete(id);
-    }*/
+    @Override
+    public void deleteCourierFromOrder(Long id) {
+        TypedQuery<Courier> query =
+                entityManager.createQuery("SELECT c FROM Courier c WHERE c.id = :id ORDER BY c.id",
+                        getManagedClass());
+        query.setParameter("id", id);
+        entityManager.remove(query.getResultList().get(0));
+    }
+
+    @Override
+    public Courier findById(Long id) {
+        TypedQuery<Courier> query =
+                entityManager.createQuery("SELECT c FROM Courier c WHERE c.id = :id ORDER BY c.id",
+                        getManagedClass());
+        query.setParameter("id", id);
+        return query.getResultList().get(0);
+    }
+
+
 }

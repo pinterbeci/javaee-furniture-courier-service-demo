@@ -14,10 +14,10 @@ public abstract class AbstractFurniture extends AbstractEntity implements Furnit
     private Date modifiedDate;
 
     @Column(name = "created_user", nullable = false)
-    private AppUserRole createdUser;
+    private Long createdUserID;
 
     @Column(name = "modifier_user")
-    private AppUserRole modifierUser;
+    private Long modifierUserID;
 
     public AbstractFurniture() {
     }
@@ -30,19 +30,19 @@ public abstract class AbstractFurniture extends AbstractEntity implements Furnit
         this.modifiedDate = modifiedDate;
     }
 
-    public AppUserRole getCreatedUser() {
-        return createdUser;
+    public Long getCreatedUserID() {
+        return createdUserID;
     }
 
-    public void setCreatedUser(AppUserRole createdUser) {
-        this.createdUser = createdUser;
+    public void setCreatedUserID(Long createdUserID) {
+        this.createdUserID = createdUserID;
     }
 
-    public AppUserRole getModifierUser() {
-        return modifierUser;
+    public Long getModifierUserID() {
+        return modifierUserID;
     }
 
-    public void setModifierUser(AppUserRole modifierUser) {
-        this.modifierUser = modifierUser;
+    public void setModifierUserID(Long modifierUserID) {
+        this.modifierUserID = modifierUserID;
     }
 }

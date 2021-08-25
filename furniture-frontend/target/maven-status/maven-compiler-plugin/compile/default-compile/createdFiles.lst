@@ -1,5 +1,6 @@
 hu\ulyssys\java\course\maven\converter\AppConverter.class
 hu\ulyssys\java\course\maven\rest\model\CoreRestModel.class
+hu\ulyssys\java\course\maven\mbean\RegistrateUserRequestBean.class
 hu\ulyssys\java\course\maven\mbean\CoreCRUDMBean.class
 hu\ulyssys\java\course\maven\mbean\MenuProviderMBean.class
 hu\ulyssys\java\course\maven\mbean\OrderCRUDMBean.class

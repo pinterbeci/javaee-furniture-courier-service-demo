@@ -2,6 +2,7 @@ package hu.ulyssys.java.course.maven.mbean;
 
 import hu.ulyssys.java.course.maven.entity.AppUserRole;
 import hu.ulyssys.java.course.maven.entity.Courier;
+import hu.ulyssys.java.course.maven.entity.Order;
 import hu.ulyssys.java.course.maven.service.CoreService;
 import hu.ulyssys.java.course.maven.service.CourierService;
 import hu.ulyssys.java.course.maven.service.OrderService;
@@ -14,16 +15,20 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Named
 @ViewScoped
-public class CourierCRUDMBean extends OrderAwareCRUDMBean<Courier> implements Serializable {
-
+public class CourierCRUDMBean extends CoreCRUDMBean<Courier> implements Serializable {
 
     @Inject
-    public CourierCRUDMBean(CourierService service, OrderService orderService) {
-        super(service, orderService);
+    private LoggedInUserBean loggedInUserBean;
+
+    @Inject
+    public CourierCRUDMBean(CourierService service) {
+        super(service);
     }
+
 
     @Override
     public void save() {
@@ -32,10 +37,10 @@ public class CourierCRUDMBean extends OrderAwareCRUDMBean<Courier> implements Se
                 getSelectedEntity().setLastName(getSelectedEntity().getLastName());
                 getSelectedEntity().setFirstName(getSelectedEntity().getFirstName());
                 getSelectedEntity().setPhoneNumber(getSelectedEntity().getPhoneNumber());
-                getSelectedEntity().setCreatedUser(AppUserRole.USER);
+                getSelectedEntity().setCreatedUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
                 getSelectedEntity().setCreatedDate(new Date());
             } else {
-                getSelectedEntity().setModifierUser(AppUserRole.USER);
+                getSelectedEntity().setModifierUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
                 getSelectedEntity().setModifiedDate(new Date());
                 service.update(getSelectedEntity());
             }
@@ -55,4 +60,6 @@ public class CourierCRUDMBean extends OrderAwareCRUDMBean<Courier> implements Se
     protected Courier initNewEntity() {
         return new Courier();
     }
+
+
 }

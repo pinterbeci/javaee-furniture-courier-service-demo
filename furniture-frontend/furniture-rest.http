@@ -3,7 +3,7 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/furniture/9
+GET http://localhost:8080/api/furniture/2
 Accept: application/json
 
 ###
@@ -13,9 +13,10 @@ Content-Type: application/json
 
 {
   "createdDate": "2021-08-19T20:49:23.256Z[UTC]",
-  "description": "Próba leírás",
-  "furnitureName": "Szekrény-08",
-  "price": 12000
+  "createdUserID": 9,
+  "description": "Próba leírás-02",
+  "furnitureName": "Dívány-08",
+  "price": 250000
 }
 
 ###
@@ -24,11 +25,11 @@ PUT http://localhost:8080/api/furniture
 Content-Type: application/json
 
 {
-  "id": 11,
+  "id": 4,
   "createdDate": "2021-08-19T20:49:23.256Z[UTC]",
-  "description": "Gardróbként használható, beépíthető",
-  "furnitureName": "Szekrény-08",
-  "price": 120000
+  "description": "Gardróbként nem használható, nem beépíthető",
+  "furnitureName": "Szekrény-09",
+  "price": 50000
 }
 
 ###
