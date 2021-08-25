@@ -69,4 +69,5 @@ public class OrderDAOImpl extends CoreDAOImpl<Order> implements OrderDAO {
         return query.getResultList();
     }
 
+
 }

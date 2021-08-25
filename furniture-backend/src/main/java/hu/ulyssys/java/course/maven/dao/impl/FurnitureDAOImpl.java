@@ -30,6 +30,15 @@ public class FurnitureDAOImpl extends CoreDAOImpl<Furniture> implements Furnitur
     }
 
 
+  @Override
+    public List<Furniture> orderedFurniture() {
+
+        TypedQuery<Furniture> query =
+                entityManager.createQuery(
+                        "SELECT f FROM Order o JOIN o.furnitureList f",
+                        Furniture.class);
+        return query.getResultList();
+    }
 
 
 }

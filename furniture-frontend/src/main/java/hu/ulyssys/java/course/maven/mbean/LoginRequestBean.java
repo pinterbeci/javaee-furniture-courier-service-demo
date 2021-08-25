@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -71,11 +72,11 @@ public class LoginRequestBean {
     }
 
 
-    public void doLogout() {
+    public String doLogout() {
         bean.setLoggedInUserModel(null);
-
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("Sikeres kilépés!"));
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.invalidate();
+        return "/xhtml/login";
     }
 
 

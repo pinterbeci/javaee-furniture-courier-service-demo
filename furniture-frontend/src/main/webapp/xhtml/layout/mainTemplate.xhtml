@@ -17,24 +17,34 @@
         <h:form id="menuBarForm">
             <p:menubar model="#{menuProviderMBean.getMenuModel()}" style="margin: 5px auto">
                 <f:facet name="options">
-                 <!--   <p:commandButton rendered="#{loggedInUserBean.loggedIn==false}"
+                    <!--
+                    <p:commandButton rendered="#{loggedInUserBean.loggedIn==false}"
                                      oncomplete="PF('loginDialog').show()" value="Bejelentkezés"
                                      icon="pi pi-fw pi-sign-in"
-                                     styleClass="ui-button-info"/>-->
+                                     styleClass="ui-button-info"/>
+-->
+                    <p:commandLink
+                            value="Irány a belépéshez!" action="/xhtml/login.xhtml"
+                            rendered="#{loggedInUserBean.loggedIn==false}"/>
 
-                    <p:outputLabel rendered="#{loggedInUserBean.loggedIn==true}"
-                                   value="#{loggedInUserBean.loggedInUserModel.username} (#{loggedInUserBean.loggedInUserModel.role})"
-                                   style="padding: 5px 10px; margin: 5px 10px; font-weight: bold; font-style: inherit"/>
+                    <p:outputLabel
+
+                            rendered="#{loggedInUserBean.loggedIn==true}"
+                            value="#{loggedInUserBean.loggedInUserModel.username} (#{loggedInUserBean.loggedInUserModel.role})"
+                            style="padding: 5px 10px; margin: 5px 10px; font-weight: bold; font-style: inherit"/>
 
                     <p:commandButton actionListener="#{loginRequestBean.doLogout()}"
+                                     onclick="windows.open('/xhtml/login.xhtml', '_blank')"
                                      rendered="#{loggedInUserBean.loggedIn==true}" value="Kijelentkezés"
                                      icon="pi pi-fw pi-sign-out"
                                      styleClass="ui-button-info"
                                      update="@([id$=loginForm])  @([id$=crudFunctionsToolbar])"/>
+
+
                 </f:facet>
             </p:menubar>
         </h:form>
-       <!-- <p:dialog modal="true" widgetVar="loginDialog" id="loginDialog" header="Belépés">
+        <p:dialog modal="true" widgetVar="loginDialog" id="loginDialog" header="Belépés">
             <h:form id="loginForm" style="width: 500px; text-align: center; ">
 
                 <p:outputLabel value="Felhasználó név" style="text-align: center"/>
@@ -49,10 +59,10 @@
 
                 <p:separator style="width: 5px; background: gray; "/>
                 <p:commandButton value="Belépés" actionListener="#{loginRequestBean.doLogin}"
-                                 update="@([id$=menuBarForm]) @([id$crudFunctionsToolbar])"
+                                 update="@([id$=menuBarForm]) @([id$=crudFunctionsToolbar])"
                                  style="align-content: center"/>
             </h:form>
-        </p:dialog>-->
+        </p:dialog>
 
     </ui:insert>
     <ui:insert name="content"/>

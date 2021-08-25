@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -108,22 +109,14 @@ public class OrderCRUDMBean extends OrderAwareCRUDMBean<Order> implements Serial
         this.selectedFurnitureList = selectedFurnitureList;
     }
 
-    public List<Order> customerOrders(){
+    public List<Order> customerOrders() {
         return orderService.findOrderByCustomerID(loggedInUserBean.getLoggedInUserModel().getUserID());
     }
 
-    public List<Furniture> customerOrderFurnitureList(){
-
-        //todo
-        return null ;
-
-    }
-
-    public List<Order> allOrders(){
+    public List<Order> allOrders() {
         //admin számára, futár kivételével minden adat szerepel
         return orderService.findAllUserOrderForAdmin();
     }
 
 
-
-    }
+}

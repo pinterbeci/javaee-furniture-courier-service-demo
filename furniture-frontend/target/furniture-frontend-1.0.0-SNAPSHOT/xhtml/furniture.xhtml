@@ -14,45 +14,12 @@
         <h:form id="form">
             <p:growl id="growl" showDetail="false"/>
 
-           <!-- <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton id="add" icon="pi pi-plus" process="@this" value="Új hozzáadása"
-                                     actionListener="#{furnitureCRUDMBean.initSave}" update="@([id$=furnitureForm])"
-                                     oncomplete="PF('furnitureDialog').show()"/>
-                    <p:commandButton disabled="#{furnitureCRUDMBean.selectedEntity.id==null}" id="delete" icon="pi pi-times"
-                                     process="@this" value="Törlés" actionListener="#{furnitureCRUDMBean.remove}"
-                                     update="@form">
-                        <p:confirm header="Törlés" message="Biztos vagy benne?" icon="pi pi-times"/>
-                    </p:commandButton>
-                    <p:commandButton disabled="#{furnitureCRUDMBean.selectedEntity.id==null}" id="update" process="@this"
-                                     value="Módosítás" icon="pi pi-pencil" update="@([id$=furnitureForm])"
-                                     oncomplete="PF('furnitureDialog').show()"/>
-                </p:toolbarGroup>
-                <p:toolbarGroup align="right">
-                    <p:commandButton id="columntTogglerBtn" icon="pi pi-table"/>
-
-                    <p:columnToggler id="columntToggler" trigger="columntTogglerBtn" datasource="table"/>
-
-                    <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="xls" target="table" fileName="export"/>
-                    </p:commandButton>
-
-                    <p:commandButton value="XLXS" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="xlsxstream" target="table" fileName="export"/>
-                    </p:commandButton>
-
-
-                    <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="pdf" target="table" fileName="export"/>
-                    </p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>-->
 
             <crud:crudFunctions bean="#{furnitureCRUDMBean}" onCompleteShowDialog="PF('furnitureDialog').show()"
                                 onCompleteUpdate="@([id$=furnitureForm])"/>
 
 
-            <p:dataTable id="table" paginator="true" value="#{furnitureCRUDMBean.list}" var="furniture"
+            <p:dataTable id="table" paginator="true" value="#{furnitureCRUDMBean.trial()}" var="furniture"
                          rendered="#{loggedInUserBean.loggedIn}"
                          selectionMode="single" selection="#{furnitureCRUDMBean.selectedEntity}"
                          rowKey="#{furniture.id}"

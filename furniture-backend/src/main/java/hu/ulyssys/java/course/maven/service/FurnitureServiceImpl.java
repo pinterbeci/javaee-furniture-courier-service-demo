@@ -13,5 +13,10 @@ public class FurnitureServiceImpl extends AbstractServiceImpl<Furniture> impleme
         return ((FurnitureDAO) dao).findByOrderID(id);
     }
 
+    @Override
+    public List<Furniture> orderedFurniture() {
+        return ((FurnitureDAO) dao).orderedFurniture();
+    }
+
 
 }

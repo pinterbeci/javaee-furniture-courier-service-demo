@@ -8,4 +8,5 @@ public interface FurnitureService extends CoreService<Furniture> {
 
     List<Furniture> findByOrderID(Long id);
 
+    List<Furniture> orderedFurniture();
 }

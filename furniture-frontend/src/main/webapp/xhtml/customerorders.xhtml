@@ -25,10 +25,6 @@
                          rowsPerPageTemplate="5,10,{ShowAll|'All'}">
                 <p:ajax event="rowSelect" update="@form"/>
 
-                <p:column style="width:2rem">
-                    <p:rowToggler/>
-                </p:column>
-
                 <p:column toggleable="false" sortBy="#{order.id}" filterBy="#{order.id}"
                           filterMatchMode="contains"
                           headerText="ID">
@@ -72,7 +68,6 @@
                           headerText="Megrendelő felhasználóneve">
                     <h:outputText value="#{order.customer.username}"/>
                 </p:column>
-
 
             </p:dataTable>
         </h:form>

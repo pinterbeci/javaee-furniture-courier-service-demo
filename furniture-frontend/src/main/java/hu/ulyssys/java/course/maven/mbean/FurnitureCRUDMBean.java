@@ -13,7 +13,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -21,6 +23,9 @@ public class FurnitureCRUDMBean extends CoreCRUDMBean<Furniture> implements Seri
 
     @Inject
     private LoggedInUserBean loggedInUserBean;
+
+    @Inject
+    private FurnitureService furnitureService;
 
     @Inject
     public FurnitureCRUDMBean(FurnitureService service) {
@@ -57,4 +62,9 @@ public class FurnitureCRUDMBean extends CoreCRUDMBean<Furniture> implements Seri
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
         }
     }
+
+    public List<Furniture> trial(){
+        return furnitureService.orderedFurniture();
+    }
+
 }

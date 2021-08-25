@@ -15,4 +15,5 @@ public interface OrderService extends CoreService<Order> {
     List<Order> getAllOrderForUser();
 
     List<Order> findAllUserOrderForAdmin();
+
 }
