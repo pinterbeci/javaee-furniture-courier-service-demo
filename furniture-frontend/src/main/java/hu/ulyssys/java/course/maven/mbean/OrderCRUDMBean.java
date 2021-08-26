@@ -72,16 +72,17 @@ public class OrderCRUDMBean extends OrderAwareCRUDMBean<Order> implements Serial
                 getSelectedEntity().setCreatedDate(new Date());
                 getSelectedEntity().setCreatedUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
 
+
             } else {
                 getSelectedEntity().setModifierUserID(loggedInUserBean.getLoggedInUserModel().getUserID());
                 getSelectedEntity().setModifiedDate(new Date());
             }
-            super.save();
+
             PrimeFaces.current().executeScript("PF('" + dialogName() + "').hide()");
+            super.save();
 
             FacesContext.getCurrentInstance().addMessage("",
-                    new FacesMessage("Sikeres rendelés!"));
-
+                    new FacesMessage("Rendelését sikeresen feladta! Szabad futár hozzárendelése után, ellenőrizheti a rendelését a 'Rendeléseim' fül segítségével!"));
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sikertelen törlés", null));
@@ -117,6 +118,5 @@ public class OrderCRUDMBean extends OrderAwareCRUDMBean<Order> implements Serial
         //admin számára, futár kivételével minden adat szerepel
         return orderService.findAllUserOrderForAdmin();
     }
-
 
 }

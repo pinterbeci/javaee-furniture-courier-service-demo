@@ -17,13 +17,8 @@
         <h:form id="menuBarForm">
             <p:menubar model="#{menuProviderMBean.getMenuModel()}" style="margin: 5px auto">
                 <f:facet name="options">
-                    <!--
-                    <p:commandButton rendered="#{loggedInUserBean.loggedIn==false}"
-                                     oncomplete="PF('loginDialog').show()" value="Bejelentkezés"
-                                     icon="pi pi-fw pi-sign-in"
-                                     styleClass="ui-button-info"/>
--->
-                    <p:commandLink
+
+                    <p:commandLink style="font-weight: bold; color: dodgerblue;  font-size: 30px; text-underline: none;"
                             value="Irány a belépéshez!" action="/xhtml/login.xhtml"
                             rendered="#{loggedInUserBean.loggedIn==false}"/>
 
